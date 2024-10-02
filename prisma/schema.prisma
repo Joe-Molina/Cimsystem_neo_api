@@ -1,0 +1,2461 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model acceso {
+  id_acceso  Int      @id(map: "PK_accesox") @default(autoincrement())
+  nombre     String?  @db.VarChar(50)
+  nivel      String?  @db.VarChar(50)
+  formulario String?  @db.VarChar(50)
+  objeto     String?  @db.VarChar(50)
+  tabulador  String?  @db.VarChar(50)
+  grupo      String?  @db.VarChar(50)
+  boton      String?  @db.VarChar(50)
+  propiedad  String?  @db.VarChar(50)
+  valor      Boolean?
+  activa     Boolean?
+}
+
+model afiliados_acceso {
+  ID_BIO     Int       @default(autoincrement())
+  ACCION     String    @db.VarChar(50)
+  CEDULA     String?   @db.VarChar(100)
+  TARJETA    String    @id(map: "PK_afiliados_acceso") @db.VarChar(100)
+  HUELLA     String?   @default("", map: "DF_afiliados_acceso_HUELLA") @db.VarChar(4000)
+  NOMBRE     String?   @db.VarChar(250)
+  FECHA      DateTime? @db.DateTime
+  ENTRADA    Int?
+  CONTEO     Int?
+  ACTUALIZA  Int?
+  ULTIMO     DateTime? @db.DateTime
+  tabla      String?   @db.VarChar(50)
+  obser      String?   @default("", map: "DF_afiliados_acceso_obser") @db.VarChar(250)
+  fecha_modi DateTime? @db.DateTime
+  ACTIVO     Boolean?
+  restringe  String?   @default("0", map: "DF_afiliados_acceso_restringe") @db.VarChar(250)
+  cargo      String?   @default(" ", map: "DF__afiliados__cargo__76AC771E") @db.VarChar(50)
+  ACTIVOWEB  DateTime? @default(dbgenerated("1999-01-01"), map: "DF_afiliados_acceso_ACTIVOWEB") @db.DateTime
+  id_socio   Int?      @default(0, map: "DF__afiliados__id_so__2BAA4F42")
+  id_tabla   Int?      @default(0, map: "DF__afiliados__id_ta__2C9E737B")
+}
+
+model alumnos {
+  id_alumno     Int       @default(autoincrement())
+  activo        Boolean?
+  status        Int?      @default(0, map: "DF_alumnos_status")
+  accion        String?   @db.Char(10)
+  cedula        String    @db.VarChar(10)
+  nombre        String?   @db.VarChar(50)
+  telefonos     String?   @default("", map: "DF_telefonos") @db.VarChar(20)
+  email         String?   @db.VarChar(150)
+  id_curso      Int
+  nfcId         String?   @default("0", map: "DF_alumnos_nfcId") @db.VarChar(20)
+  id_nfc        Int?      @default(0, map: "DF_alumnos_id_nfc")
+  susp_desde    DateTime? @db.DateTime
+  susp_hasta    DateTime? @db.DateTime
+  fecha_crea    DateTime? @default(now(), map: "DF_alumnos_fecha_crea") @db.DateTime
+  fecha_modi    DateTime? @db.DateTime
+  id_alumno_web Int?      @default(0, map: "DF_alumnos_id_alumno_web")
+  cedulaR       String?   @default("", map: "DF_alumnos_cedulaR") @db.VarChar(15)
+  nombreR       String?   @default("", map: "DF_alumnos_nombreR") @db.VarChar(150)
+  celularR      String?   @default("", map: "DF_alumnos_celularR") @db.VarChar(50)
+  emailR        String?   @default("", map: "DF_alumnos_emailR") @db.VarChar(100)
+  fecha_car     DateTime? @default(now(), map: "DF_alumnos_fecha_car") @db.DateTime
+  date_access   DateTime? @db.DateTime
+  idDig         Boolean?  @default(false, map: "DF__alumnos__idDig__7953D99F")
+  fecIdDig      DateTime? @db.DateTime
+  direccion     String?   @default("", map: "DF_direccion") @db.VarChar(200)
+  exonInscri    Int?      @default(0, map: "DF__alumnos__exonIns__7A9D0393")
+  exonMensu     Int?      @default(0, map: "DF__alumnos__exonMen__7B9127CC")
+
+  @@id([cedula, id_curso], map: "PK_alumnos_1")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model articulo {
+  id_empresa         String  @db.NVarChar(6)
+  agencia            String  @db.NVarChar(3)
+  codigo             String  @db.NVarChar(25)
+  grupo              String? @db.NVarChar(6)
+  subgrupo           String? @db.NVarChar(6)
+  nombre             String? @db.NVarChar(80)
+  nombrecorto        String? @db.NVarChar(20)
+  referencia         String? @db.NVarChar(20)
+  marca              String? @db.NVarChar(20)
+  unidad             String? @db.NVarChar(15)
+  usaexist           Float
+  costo              Float
+  precio1            Float
+  precio2            Float
+  precio3            Float
+  precio4            Float
+  precio5            Float
+  precio6            Float
+  precio7            Float
+  precio8            Float
+  preciofin1         Float
+  preciofin2         Float
+  preciofin3         Float
+  preciofin4         Float
+  preciofin5         Float
+  preciofin6         Float
+  preciofin7         Float
+  preciofin8         Float
+  existencia         Float
+  inactiva           Float
+  comprometido       Float
+  minimo             Float
+  maximo             Float
+  origen             Float
+  impuesto           Float
+  usaserial          Float
+  comision1          Float
+  comision2          Float
+  comision3          Float
+  comision4          Float
+  comision5          Float
+  comision6          Float
+  comision7          Float
+  comision8          Float
+  util1              Float
+  util2              Float
+  util3              Float
+  util4              Float
+  util5              Float
+  util6              Float
+  util7              Float
+  util8              Float
+  formato            String? @db.NVarChar(10)
+  decimales          Float
+  compuesto          Float
+  cfob               Float
+  cnacionali         Float
+  prcnac             Float
+  cflete             Float
+  prcflete           Float
+  carancel           Float
+  prcarancel         Float
+  cgastoper          Float
+  prccosoper         Float
+  cotroscos          Float
+  ccostocyf          Float
+  costoex            Float
+  costoref           Float
+  precio1ex          Float
+  precio2ex          Float
+  precio3ex          Float
+  precio4ex          Float
+  precio5ex          Float
+  precio6ex          Float
+  precio7ex          Float
+  precio8ex          Float
+  factor             Float
+  garantia           Float
+  empaque            Float
+  unidadgrp          String? @db.NVarChar(15)
+  cntgrp             Float
+  costgrp            Float
+  precio1grp         Float
+  precio2grp         Float
+  precio3grp         Float
+  precio4grp         Float
+  precio5grp         Float
+  precio6grp         Float
+  precio7grp         Float
+  precio8grp         Float
+  prcgrp1            Float
+  prcgrp2            Float
+  prcgrp3            Float
+  prcgrp4            Float
+  prcgrp5            Float
+  prcgrp6            Float
+  prcgrp7            Float
+  prcgrp8            Float
+  creadopor          String? @db.NVarChar(8)
+  modifpor           String? @db.NVarChar(8)
+  margenpor          String? @db.NVarChar(1)
+  costo_ant          Float
+  costo_prom         Float
+  impuesto1          Float
+  impuesto2          Float
+  impuesto3          Float
+  impuesto4          Float
+  impuesto5          Float
+  impuesto6          Float
+  rutafoto           String? @db.NVarChar(80)
+  detalles           String? @db.NVarChar(Max)
+  contraindi         String? @db.NVarChar(Max)
+  usointerno         Float
+  aux1               Float
+  aux2               Float
+  aux3               Float
+  simbolo            String? @db.NVarChar(20)
+  modelo             String? @db.NVarChar(20)
+  discont            Float
+  flotante           Float
+  cimpuesto1         Float
+  cimpuesto2         Float
+  cimpuesto3         Float
+  cimpuesto4         Float
+  cimpuesto5         Float
+  cimpuesto6         Float
+  cuentacont         String? @db.NVarChar(40)
+  metodo             Float
+  sevence            Float
+  usalotes           Float
+  controlado         Float
+  volumen            Float
+  peso               Float
+  diametro           String? @db.NVarChar(15)
+  usabalanza         Float
+  topeminvent        Float
+  topemaxvent        Float
+  forma              String? @db.NVarChar(15)
+  esvehiculo         Float
+  aceptadscto        Float
+  aceptacred         Float
+  metodoround        Float
+  unidinamica        Float
+  campo1             String? @db.NVarChar(100)
+  campo2             String? @db.NVarChar(100)
+  campo3             String? @db.NVarChar(100)
+  campo4             String? @db.NVarChar(100)
+  campo5             String? @db.NVarChar(100)
+  campo6             String? @db.NVarChar(100)
+  campo7             String? @db.NVarChar(100)
+  campo8             String? @db.NVarChar(100)
+  campo9             String? @db.NVarChar(100)
+  campo10            String? @db.NVarChar(100)
+  imp_nacional       Float
+  imp_producc        Float
+  gimp_nacional      Float
+  gimp_producc       Float
+  ctacontinv         String? @db.NVarChar(40)
+  ctacontcostos      String? @db.NVarChar(40)
+  ctacontingresos    String? @db.NVarChar(40)
+  blocked            Float
+  usatallacolor      Float
+  deposito_in        String? @db.NVarChar(2)
+  deposito_out       String? @db.NVarChar(2)
+  und_simpleagrupado Float
+  usa_servidor       Int     @db.TinyInt
+  artcolor           Float
+  para_web           Float
+  rotacionvta        Float
+  ctacontdevolucion  String  @db.NVarChar(40)
+  secompra           Float
+  dadicart01         String  @db.NVarChar(100)
+  dadicart02         String  @db.NVarChar(100)
+  dadicart03         String  @db.NVarChar(100)
+  discontc           Float
+  codarancel         String  @db.NVarChar(16)
+  recargast          Int     @db.TinyInt
+  exislr             Int     @db.TinyInt
+  esdinamico         Int     @db.TinyInt
+  usa_escala         Int     @db.TinyInt
+  usacanjepuntos     Int
+  usabulto           Int     @db.TinyInt
+  cantbulto          Float
+  nousaweb           Float
+  codcont_cmxp       String  @db.NVarChar(40)
+  ctacontdevcomp     String  @db.NVarChar(40)
+  garantiac          Float
+  hashtag            String? @db.NVarChar(Max)
+  ctacontdescuen     String  @db.NVarChar(40)
+  codigotipomed      String  @db.NVarChar(10)
+  codigotipoprod     String  @db.NVarChar(10)
+  datos_xml          String? @db.NVarChar(Max)
+  formato2           String  @db.NVarChar(25)
+
+  @@ignore
+}
+
+model auditoria {
+  id         Int      @id(map: "PK_auditoria") @default(autoincrement())
+  usuario    String   @db.VarChar(100)
+  modulo     String   @db.VarChar(150)
+  accion     String   @db.VarChar(250)
+  fecha_modi DateTime @db.DateTime
+  motivo     String?  @default(" ", map: "DF_auditoria_motivo") @db.VarChar(1000)
+}
+
+model bancos {
+  id_banco   Int       @default(autoincrement())
+  descripcio String    @id(map: "PK_bancos") @db.Char(50)
+  no_change  Boolean?
+  pinpad     Boolean?
+  cuenta     String?   @default("", map: "DF_bancos_cuenta") @db.Char(100)
+  activo     Boolean?  @default(false, map: "DF_bancos_activo")
+  fecha_modi DateTime? @default(now(), map: "DF_bancos_fecha_modi") @db.SmallDateTime
+  sincro     Boolean?
+  cta_contab String?   @default("", map: "DF__bancos__cta_cont__601E1781") @db.VarChar(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model bio_acceso {
+  c_id    Int     @default(autoincrement())
+  fecha   String? @db.Text
+  userid  String? @db.Text
+  ip      String? @db.Text
+  motrado Int?
+  error   String? @db.Text
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cajas {
+  id_caja      Int
+  descripcio   String? @db.Char(10)
+  serial_fis   String? @db.Char(15)
+  registro_fis String? @db.Char(15)
+  nro          String? @db.Char(2)
+
+  @@ignore
+}
+
+model carnet_traba {
+  id_direc    Int       @default(autoincrement())
+  nombre      String?   @db.Char(80)
+  cedula      String    @id(map: "PK_carnet_traba") @db.VarChar(15)
+  cargo       String?   @db.VarChar(50)
+  celular     String?   @default(" ", map: "DF__carnet_tr__celul__6BA4D8C6") @db.VarChar(16)
+  email       String?   @default(" ", map: "DF__carnet_tr__email__6C98FCFF") @db.VarChar(150)
+  tipo        Int?
+  fecha_venc  DateTime? @db.DateTime
+  fecha_hora  DateTime? @default(now(), map: "DF__carnet_tr__fecha__6D8D2138") @db.DateTime
+  activo      Int?      @default(1, map: "DF__carnet_tr__activ__6E814571")
+  nfcId       String?   @default("0", map: "DF__carnet_tr__nfcId__6F7569AA") @db.VarChar(20)
+  id_nfc      Int?      @default(0, map: "DF__carnet_tr__id_nf__70698DE3")
+  date_access DateTime? @db.DateTime
+  accion      String?   @db.VarChar(10)
+  idConce     Int?
+  fecha_car   DateTime? @db.DateTime
+  fecha_modi  DateTime? @default(now(), map: "DF__carnet_tr__fecha__715DB21C") @db.DateTime
+  status      Int?      @default(0, map: "DF__carnet_tr__statu__4420F751")
+  susp_desde  DateTime? @db.DateTime
+  susp_hasta  DateTime? @db.DateTime
+  restringe   String?   @default(" ", map: "DF__carnet_tr__restr__77A09B57") @db.VarChar(250)
+  idDig       Boolean?  @default(false, map: "DF__carnet_tr__idDig__758348BB")
+  fecIdDig    DateTime? @db.DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model catalogo_ctas {
+  id_cta     Int     @default(autoincrement())
+  cta_contab String? @db.VarChar(50)
+  id_        Int?    @default(0, map: "DF__catalogo_ct__id___0C90CB45")
+  descripcio String? @db.VarChar(200)
+  letra      String? @db.Char(10)
+  activo     Int?    @default(1, map: "DF__catalogo___activ__0D84EF7E")
+  tipo_comis Int?    @default(0, map: "DF__catalogo___tipo___0E7913B7")
+  comision   Float?  @default(0, map: "DF__catalogo___comis__0F6D37F0")
+  retencion  Float?  @default(0, map: "DF__catalogo___reten__10615C29")
+  iva        Float?  @default(0, map: "DF__catalogo_ct__iva__11558062")
+  id_banco   Int?    @default(0, map: "DF__catalogo___id_ba__1249A49B")
+
+  @@ignore
+}
+
+model cate_cursos {
+  id_tipo    Int       @default(autoincrement())
+  descripcio String    @id(map: "PK_cate_cursos") @db.VarChar(20)
+  sincro     Int?      @default(0, map: "DF_cate_cursos_sincro")
+  fecha_modi DateTime? @default(now(), map: "DF_cate_cursos_fecha_modi") @db.DateTime
+}
+
+model chat {
+  idMensaje  Int       @id(map: "PK_chat") @default(autoincrement())
+  tipoMens   Int?
+  accion     String?   @db.VarChar(10)
+  cedula     String?   @db.VarChar(20)
+  usuario    String?   @db.VarChar(100)
+  mensaje    String?   @db.VarChar(252)
+  fechaHora  DateTime? @default(now(), map: "DF_chat_fechaHora") @db.DateTime
+  fechaVisto DateTime? @db.DateTime
+  creadoPor  String?   @db.VarChar(10)
+  destino    String?   @db.VarChar(100)
+  noVer      String?   @default(" ", map: "DF_chat_noVer") @db.VarChar(500)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cierre {
+  id_cierre  Int       @default(autoincrement())
+  id_op      Int?
+  horaIni    DateTime? @db.DateTime
+  horaFin    DateTime? @db.DateTime
+  totalNeoCl Float?    @default(0, map: "DF_cierre_totalIng")
+  totalCajer Float?    @default(0, map: "DF_cierre_totalEgr")
+  totalSalFa Float?    @default(0, map: "DF_cierre_totalSalFa")
+  sobrante   Float?    @default(0, map: "DF_cierre_sobrante")
+  faltante   Float?    @default(0, map: "DF_cierre_faltante")
+  caja       String?   @db.VarChar(10)
+  fechaHora  DateTime? @default(now(), map: "DF_cierre_fechaHora") @db.DateTime
+  fecha      DateTime? @default(dbgenerated("CONVERT([date],getdate(),(0))"), map: "DF_cierre_fecha") @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cierreDeta {
+  id_deta    Int       @default(autoincrement())
+  id_cierre  Int?
+  cant       Int?      @default(0, map: "DF_cierreDeta_cant")
+  descPago   String?   @db.VarChar(50)
+  titulo     String?   @db.VarChar(250)
+  montoNeoCl Float?
+  montoCaje  Float?
+  sobrante   Float?    @default(0, map: "DF_cierreDeta_sob")
+  faltante   Float?    @default(0, map: "DF_cierreDeta_fal")
+  motivo     String?   @db.VarChar(250)
+  fechaHora  DateTime? @default(now(), map: "DF_cierreDeta_fechaHora") @db.DateTime
+  fis_nofis  Boolean?
+  fecha      DateTime? @default(dbgenerated("CONVERT([date],getdate(),(0))"), map: "DF_cierreDeta_fecha") @db.DateTime
+  divisa     Float?    @default(0, map: "DF__cierreDet__divis__45000CF1")
+  ref        Float?    @default(0, map: "DF__cierreDeta__ref__45F4312A")
+
+  @@ignore
+}
+
+model clave {
+  id_clave   Int       @default(autoincrement())
+  clave      String    @id(map: "PK_clave") @db.Char(15)
+  nombre     String?   @db.Char(35)
+  nivel      Int?
+  fecha_modi DateTime? @db.DateTime
+  activa     Boolean?
+  action     String?   @default("0", map: "DF__clave__action__5105F123") @db.VarChar(500)
+  cruce      String?   @db.VarChar(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model club_Afiliados {
+  id                  Int     @default(autoincrement())
+  nombre              String? @db.NVarChar(255)
+  cedula              String? @db.VarChar(20)
+  NroAfiliacion       String? @db.NVarChar(255)
+  hTipoAfiliado       Float?
+  hParent             Float?
+  hParentTipoRelacion Float?
+  Estatus             String? @db.NVarChar(255)
+  hCliente            String? @db.NVarChar(255)
+  NroCP               Float?
+  FPImage             String? @db.NVarChar(255)
+  FPTemplate          String? @db.NVarChar(255)
+  RFId                String? @db.VarChar(53)
+
+  @@ignore
+}
+
+model concesionarios {
+  id_conce   Int       @default(autoincrement())
+  activo     Boolean?
+  codigo     String    @db.VarChar(15)
+  rif        String    @db.VarChar(15)
+  descripcio String?   @db.VarChar(100)
+  precio     Float?
+  iva_ser    Float?
+  sucursal   String    @default("", map: "DF_concesionarios_sucursal") @db.Char(1)
+  rep        String?   @db.VarChar(50)
+  cel_rep    String?   @db.VarChar(20)
+  direccion  String?   @db.VarChar(200)
+  cuotas     Int?
+  marca      Boolean?
+  Ciudad     String?   @db.VarChar(50)
+  Estado     String?   @db.VarChar(50)
+  Telefono   String?   @db.VarChar(50)
+  eMail      String?   @db.VarChar(150)
+  divisa     Float?    @default(0, map: "DF_concesionarios_divisa")
+  fecha_modi DateTime? @db.DateTime
+  cta_contab String?   @default("", map: "DF__concesion__cta_c__39F86E99") @db.VarChar(50)
+
+  @@id([rif, sucursal], map: "PK_concesionarios")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model config_local {
+  logotipo     String    @db.Char(80)
+  tapiz        String?   @db.VarChar(150)
+  cliente      String?   @db.Char(100)
+  ruta_exe     String?   @db.VarChar(150)
+  ruta_fotos   String?   @db.VarChar(150)
+  ruta_report  String?   @db.VarChar(150)
+  decimales    Int?
+  valor_imp    Float?
+  char_iva     String?   @db.Char(10)
+  valor_impE   Float?
+  char_ivaE    String?   @db.Char(10)
+  monto_accion Float?
+  mon_acc_divi Float?
+  PorGasAdm    Float?
+  TraspCero    Boolean?
+  va_trasp     Int?
+  monto_tra    Float?
+  monTrasDiv   Float?
+  monTrasRed   Float?
+  monTrDivRe   Float?
+  nro_giros    Int?
+  porc_abono   Float?
+  porcXgiro    Float?
+  ciudad       String    @db.VarChar(50)
+  estado       String?   @db.VarChar(50)
+  ciu_edo      String?   @db.VarChar(50)
+  moneda       String?   @db.VarChar(6)
+  direccion    String?   @db.VarChar(100)
+  diaTranca    Int?
+  dia_moro     Int?
+  meses_moro   Int?
+  bloq_mante   Boolean?
+  bloq_extra   Boolean?
+  bloq_giros   Boolean?
+  bloq_curso   Boolean?
+  bloq_cargo   Boolean?
+  bloq_conce   Boolean?
+  calMesDisf   Float?
+  meses_dis    Int?
+  mesesReDi    Int?
+  meses_afi    Int?
+  invitados    Int?
+  next_ced_fam Int?
+  next_fact    Int?
+  next_acci    Int?
+  next_disf    Int?
+  next_afil    Int?
+  no_new_acci  Int?
+  next_curso   Int?
+  next_servi   Int?
+  next_conce   Int?
+  next_cuota   Int?
+  next_salon   Int?
+  cuo_honor    Int?
+  a_o_exo_ing  Int?      @map("año_exo_ing")
+  a_o_exo_eda  Int?      @map("año_exo_eda")
+  edad_exon    Int?
+  printer      Int?
+  por_des_afi  Int?
+  por_des_hon  Int?
+  por_des_pre  Int?
+  serie        String?   @db.Char(10)
+  acti_mante   Boolean?
+  acti_extra   Boolean?
+  afil_extra   Boolean?
+  disf_extra   Boolean?
+  com_printer  String?   @db.Char(10)
+  char_imp     String?   @db.Char(10)
+  soc_pay_cur  Boolean?
+  max_in_inv   Int?
+  edad_varon   Int?
+  edad_mujer   Int?
+  afi_x_FeMa   Boolean?  @default(false, map: "DF_config_local_afi_x_FeMa")
+  hecho_hoy    DateTime? @db.SmallDateTime
+  va_honor_ant Int?
+  va_honor_eda Int?
+  va_honor     Int?
+  next_reci    Int?
+  dia_max_cuo  Int?
+  tasa_int     Float?
+  tipo_tasa    Int?
+  mult_x       String?   @db.Char(10)
+  peri_conces  String?   @db.VarChar(50)
+  ult_periodo  DateTime? @db.DateTime
+  nfc_cards    Boolean?
+  ActExoInvit  Boolean?
+  braz_free    Int?
+  exon_free    Int?
+  ActExoCaney  Boolean?
+  caney_free   Int?
+  ipservidor   String?   @db.VarChar(20)
+  next_id_nfc  Int?
+  fact_cambio  Float?
+  max_disf     Int?      @default(0, map: "DF_config_local_max_disf")
+  max_afil     Int?
+  con_vpos     Int?
+  minim_cheq   Float?
+  MinConcil    Int?
+  MinFacWeb    Int?
+  colorSocio   Int?
+  colorNoSoc   Int?
+  index_man    Boolean?
+  index_ext    Boolean?
+  index_gir    Boolean?
+  index_con    Boolean?
+  index_cur    Boolean?
+  M_T          Boolean?
+  M_A          Boolean?
+  M_H          Boolean?
+  M_D          Boolean?
+  M_P          Boolean?
+  E_T          Boolean?
+  E_A          Boolean?
+  E_H          Boolean?
+  E_D          Boolean?
+  E_P          Boolean?
+  DisfCorrel   Boolean?
+  usaFisNoFi   Boolean?
+  manFisNoFi   Boolean?
+  extFisNoFi   Boolean?
+  girFisNoFi   Boolean?
+  conFisNoFi   Boolean?
+  curFisNoFi   Boolean?
+  carFisNoFi   Boolean?
+  A_oAntigVe   Int?      @map("AñoAntigVe")
+  urlPagos     String?   @db.VarChar(200)
+  NFC_Reader   Int?
+  fech_index   DateTime? @db.DateTime
+  inv_carnet   Boolean?
+  inv_activa   Int?
+  inv_lector   Boolean?
+  inv_impre    Boolean?
+  agre_fami    Boolean?
+  invCanMes    Int?
+  topDayCuot   Int?
+  porDesCurs   Float?
+  porDesComi   Float?
+  actDesNCu    Int?
+  serv_M       Boolean?  @default(false, map: "DF_config_local_serv_M")
+  serv_E       Boolean?  @default(false, map: "DF_config_local_serv_E")
+  serv_G       Boolean?  @default(false, map: "DF_config_local_serv_G")
+  serv_C       Boolean?  @default(false, map: "DF_config_local_serv_C")
+  serv_CU      Boolean?  @default(false, map: "DF_config_local_serv_CU")
+  mayor_edad   Int?
+  ctrl_edad    Boolean?
+  ctrl_afil    Boolean?
+  ctrl_disf    Boolean?
+  fech_cupos   DateTime? @db.DateTime
+  msgDisposi   Boolean?
+  act_invit    String?   @db.VarChar(50)
+  cobra_fam    Boolean?  @default(false, map: "DF__config_lo__cobra__68BD7F23")
+  tipoCalMan   Int?      @default(0, map: "DF_config_local_tipoCalMan")
+  tipoCalExt   Int?
+  pasoHonAut   Boolean?  @default(false, map: "DF_config_local_pasoHonAut")
+  a_oNi_oFam   Int?      @default(0, map: "DF_config_local_añoNiñoFam") @map("añoNiñoFam")
+  next_cred    Int?
+  cobra_disf   Int?
+  fingerread   Int?      @default(0, map: "DF__config_lo__finge__168449D3")
+  topDiaDesc   Int?      @default(0, map: "DF__config_lo__topDi__6AA5C795")
+  FecIniDesc   DateTime? @db.DateTime
+  FecFinDesc   DateTime? @db.DateTime
+  max_dsto     Float?
+  PorcDesc     Float?    @default(0, map: "DF__config_lo__PorcD__17786E0C")
+  mesesDesc    String?   @db.VarChar(150)
+  mesesFutur   Boolean?
+  calc_disf    Boolean?
+  topeCredBs   Float?    @default(0, map: "DF__config_lo__topeC__7889D298")
+  topeCredDi   Float?    @default(0, map: "DF__config_lo__topeC__797DF6D1")
+  ActSerAny    Boolean?
+  tasa_autom   Boolean?
+  contabilid   Boolean?
+  ruta_conta   String?   @db.VarChar(150)
+  ctaminconv   Int?
+  a_onexconv   Int?      @map("añonexconv")
+  modi_dsto    Int?      @default(0, map: "DF__config_lo__modi___7948ECA7")
+  invpormes    Int?
+  igtf         Float?
+  dayRenoDis   Int?
+  porcMora     Float?
+  topDiaMora   Int?
+  topMesMora   Int?
+  descMora     String?   @db.VarChar(50)
+  moraMante    Boolean?
+  moraExtra    Boolean?
+  moraConce    Boolean?
+  moraCurso    Boolean?
+  moraCargo    Boolean?
+  moraGiros    Boolean?
+  lunPases     Boolean?
+  marPases     Boolean?
+  miePases     Boolean?
+  juePases     Boolean?
+  viePases     Boolean?
+  sabPases     Boolean?
+  domPases     Boolean?
+  modi_fi      String?   @default(" ", map: "DF__config_lo__modi___4A0EDAD1") @db.VarChar(50)
+  pasaMaeInv   Boolean?
+  pasaFamInv   Boolean?
+  pasaTraInv   Boolean?
+  rutaFotoIn   String?   @db.VarChar(250)
+  rutaFotoVi   String?   @db.VarChar(50)
+  anoDigital   Int?
+  ReImpTick    Boolean?
+  usaPases     Boolean?
+  divisa       Float?
+  ref          Float?
+  nextFactA    Int?
+  nextReciA    Int?
+  inventario   Int?      @default(0, map: "DF__config_lo__inven__3F7C3DC5")
+  FecIniDesE   DateTime? @db.DateTime
+  FecFinDesE   DateTime? @db.DateTime
+  PorcDescE    Float?
+  mesesDescE   String?   @db.VarChar(250)
+  SistContab   Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model configuracion {
+  id_club        Int
+  activo         Boolean?
+  presidente     String    @db.VarChar(50)
+  vicepresidente String?   @db.VarChar(50)
+  secretario     String?   @db.VarChar(50)
+  cliente        String    @db.VarChar(100)
+  razon_soci     String    @db.VarChar(100)
+  rif            String    @db.VarChar(50)
+  direccion      String    @db.VarChar(200)
+  ciudad         String    @db.VarChar(50)
+  estado         String?   @db.VarChar(50)
+  telefonos      String?   @db.VarChar(50)
+  fax            String?   @db.VarChar(50)
+  e_mail         String    @db.VarChar(150)
+  fecha_corte    DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model controlAnuFacturas {
+  id_anufact Int       @default(autoincrement())
+  caja       String?   @db.VarChar(10)
+  fecha_hora DateTime? @default(now(), map: "DF__controlAn__fecha__432CD318") @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model controlAnuRecibos {
+  id_anureci Int       @default(autoincrement())
+  caja       String?   @db.VarChar(10)
+  fecha_hora DateTime? @default(now(), map: "DF__controlAn__fecha__41448AA6") @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model controlCarnets {
+  id       Int     @default(autoincrement())
+  numero   String? @db.VarChar(10)
+  cantidad Int?
+  van      Int?    @default(0, map: "DF__controlCarn__van__51AFFC99")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model controlFacturas {
+  id_fact    Int       @default(autoincrement())
+  caja       String?   @db.VarChar(10)
+  fecha_hora DateTime? @default(now(), map: "DF__controlFa__fecha__3D73F9C2") @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model controlRecibos {
+  id_reci    Int       @default(autoincrement())
+  caja       String?   @db.VarChar(10)
+  fecha_hora DateTime? @default(now(), map: "DF__controlRe__fecha__3F5C4234") @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model convenio_pago {
+  cod_acu  Int       @default(autoincrement())
+  fec_acu  DateTime? @db.DateTime
+  fec_apro DateTime? @db.DateTime
+  acc_acu  String?   @db.VarChar(10)
+  can_cuo  Int?
+  mon_par  Float?
+  mon_tot  Float?
+  sta_acu  Int?
+  sin_acu  Int?
+  fec_proc DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model correccion {
+  accion    String?   @db.VarChar(10)
+  a_o_cuota Int?      @map("año_cuota")
+  mes_cuota String?   @db.VarChar(2)
+  marca     Boolean?
+  fecha_ini DateTime? @db.SmallDateTime
+  fecha_fin DateTime? @db.SmallDateTime
+  porc      String?   @db.Char(1)
+
+  @@ignore
+}
+
+model ctrl_inv {
+  id_ctrl    Int       @default(autoincrement())
+  accion     String    @db.VarChar(10)
+  id_lugar   Int
+  gratis     Int?
+  cupo       Int?
+  fecha_mes  DateTime  @db.DateTime
+  pagados    Int?
+  fecha_dia  DateTime? @db.DateTime
+  fecha_hora DateTime? @default(now(), map: "DF_ctrl_inv_fecha_hora") @db.DateTime
+  sincro     Int?
+  cedula     String?   @db.VarChar(20)
+
+  @@id([accion, id_lugar, fecha_mes], map: "PK_ctrl_inv")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model ctrl_invR {
+  id_ctrl    Int       @default(autoincrement())
+  accion     String    @db.VarChar(10)
+  id_lugar   Int
+  gratis     Int?
+  cupo       Int?
+  fecha_mes  DateTime  @db.DateTime
+  pagados    Int?
+  fecha_dia  DateTime? @db.DateTime
+  fecha_hora DateTime? @default(now(), map: "DF_ctrl_inv_fecha_hora_1") @db.DateTime
+  sincro     Int?      @default(0, map: "DF_ctrl_inv_sincro_1")
+  cedula     String?   @db.VarChar(20)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cuotas {
+  id_cuota    Int       @default(autoincrement())
+  codigo      String    @db.Char(10)
+  tipo_cuota  Int
+  descripcio  String?   @db.VarChar(50)
+  monto       Float?
+  iva_ser     Float?
+  calculo_ser Int?
+  mes_ini     Int?
+  a_o_ini     Int?      @map("año_ini")
+  mes_fin     Int?
+  a_o_fin     Int?      @map("año_fin")
+  inicio      DateTime  @db.SmallDateTime
+  fin         DateTime? @db.SmallDateTime
+  divisa      Float?    @default(0, map: "DF_cuotas_divisa")
+  tipo        Int?      @default(0, map: "DF_cuotas_tipo")
+  fecha_modi  DateTime? @default(now(), map: "DF_cuotas_fecha_modi") @db.SmallDateTime
+  ImpExcInc   Int?
+  monto_ori   Float?
+  divFamT     Float?    @default(0, map: "DF__Cuotas__divFamT__78F3E6EC")
+  monFamT     Float?    @default(0, map: "DF__Cuotas__monFamT__79E80B25")
+  divFamD     Float?    @default(0, map: "DF__Cuotas__divFamD__7ADC2F5E")
+  monFamD     Float?    @default(0, map: "DF__Cuotas__monFamD__7BD05397")
+  montoD      Float?    @default(0, map: "DF_cuotas_montoD")
+  divisaD     Float?    @default(0, map: "DF_cuotas_divisaD")
+  divisa_ori  Float?
+  porc_mora   Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cuotas_curso {
+  id_cuo    Int       @default(autoincrement())
+  codigo    String    @db.Char(10)
+  mes_cuota Int
+  a_o_cuota Int       @map("año_cuota")
+  fecha_ini DateTime? @db.DateTime
+  fecha_fin DateTime? @db.DateTime
+  marca     Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model cursos {
+  id_curso   Int       @default(autoincrement())
+  codigo     String    @db.VarChar(10)
+  descripcio String    @db.VarChar(50)
+  fecha_ini  DateTime? @db.DateTime
+  fecha_fin  DateTime? @db.DateTime
+  fecha_crea DateTime? @default(now(), map: "DF__cursos__fecha_cr__03D16812") @db.DateTime
+  fecha_modi DateTime? @default(now(), map: "DF__cursos__fecha_mo__04C58C4B") @db.DateTime
+  iva_ser    Float?    @default(16, map: "DF__cursos__iva_ser__098A4168")
+  duracion   Int?      @default(0, map: "DF_cursos_cuotas")
+  tipo_acti  Int?      @default(1, map: "DF__cursos__tipo__05B9B084")
+  lun        Int?      @default(0, map: "DF_cursos_lun")
+  h_lun      String?   @default("", map: "DF_cursos_h_lun") @db.VarChar(50)
+  mar        Int?      @default(0, map: "DF_cursos_mar")
+  h_mar      String?   @default("", map: "DF_cursos_h_mar") @db.VarChar(50)
+  mie        Int?      @default(0, map: "DF_cursos_mie")
+  h_mie      String?   @default("", map: "DF_cursos_h_mie") @db.VarChar(50)
+  jue        Int?      @default(0, map: "DF_cursos_jue")
+  h_jue      String?   @default("", map: "DF_cursos_h_jue") @db.VarChar(50)
+  vie        Int?      @default(0, map: "DF_cursos_vie")
+  h_vie      String?   @default("", map: "DF_cursos_h_vie") @db.VarChar(50)
+  sab        Int?      @default(0, map: "DF_cursos_sab")
+  h_sab      String?   @default("", map: "DF_cursos_h_sab") @db.VarChar(50)
+  dom        Int?      @default(0, map: "DF_cursos_dom")
+  h_dom      String?   @default("", map: "DF_cursos_h_dom") @db.VarChar(50)
+  sincro     Int?      @default(0, map: "DF__cursos__sincro2__07A1F8F6")
+  cate_curso Int?      @default(0, map: "DF_cursos_cate_curso")
+  noGenIns   Int?      @default(0, map: "DF_cursos_noGenIns")
+  inicial    Float?    @default(0, map: "DF_cursos_inicial")
+  mon_curso  Float?    @default(0, map: "DF_cursos_mon_curso")
+  divisa     Float?    @default(0, map: "DF_cursos_divisa")
+  IniSocDo   Float?    @default(0, map: "DF__cursos__iniSocDi__7C30464A")
+  MenSocDo   Float?    @default(0, map: "DF__cursos__menSocDi__7D246A83")
+  IniNoSocDo Float?    @default(0, map: "DF__cursos__iniNoSoc__0000D72E")
+  MenNoSocDo Float?    @default(0, map: "DF__cursos__menNoSoc__00F4FB67")
+  ini_socios Float?    @default(0, map: "DF__cursos__iniSocBs__7E188EBC")
+  mon_socios Float?    @default(0, map: "DF__cursos__menSocBs__7F0CB2F5")
+  restringe  String?   @default(" ", map: "DF_cursos_restringe") @db.VarChar(250)
+  activo     Boolean?  @default(true, map: "DF_cursos_activo")
+  iniNoSocBs Float?    @default(0, map: "DF_cursos_iniNoSocBs")
+
+  @@ignore
+}
+
+model data_cargo {
+  id_cuo     Int       @id(map: "PK_data_cargo") @default(autoincrement())
+  codigo     String?   @db.Char(10)
+  accion     String?   @db.Char(10)
+  a_o_cuota  Int       @map("año_cuota")
+  mes_cuota  Int
+  marca      Boolean?
+  fecha_ini  DateTime  @db.SmallDateTime
+  fecha_fin  DateTime? @db.SmallDateTime
+  fecha_can  DateTime? @db.DateTime
+  monto      Float?
+  monto_pago Float?
+  monto_cuot Float?
+  monto_ori  Float?
+  manual     String?   @db.VarChar(2)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  exon       String?   @db.VarChar(250)
+  mod_mon    String?   @db.VarChar(250)
+  divisa     Float?
+  tipo       Int?
+  fecha_modi DateTime? @db.DateTime
+  pago_web   Int?
+  sincro     Int?
+  fecha_web  DateTime? @db.DateTime
+  descripcio String?   @db.VarChar(250)
+  sincro2    Int?      @default(0, map: "DF__data_carg__sincr__6033261A")
+}
+
+model data_conce {
+  id_cuo     Int       @default(autoincrement())
+  codigo     String    @db.Char(20)
+  a_o_cuota  Int       @map("año_cuota")
+  mes_cuota  Int
+  fecha_ini  DateTime  @db.SmallDateTime
+  fecha_fin  DateTime? @db.SmallDateTime
+  fecha_can  DateTime? @db.DateTime
+  marca      Boolean?
+  iva_ser    Float?    @default(16, map: "DF_data_conce_iva_ser")
+  manual     String?   @db.VarChar(2)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  pago_web   Int?      @default(0, map: "DF_data_conce_pago_web")
+  sincro     Int?      @default(0, map: "DF_data_conce_sincro")
+  sincro2    Int?      @default(0, map: "DF__data_conc__sincr__174363E2")
+  fecha_modi DateTime? @default(now(), map: "DF__data_conc__fecha__76776CF4") @db.DateTime
+  exon       String?   @default("", map: "DF__data_conce__exon__6DAD1CC9") @db.VarChar(250)
+  mod_mon    String?   @default("", map: "DF__data_conc__mod_m__6EA14102") @db.VarChar(250)
+  monto      Float?
+  divisa     Float?    @default(0, map: "DF__data_conc__divis__6F95653B")
+
+  @@id([codigo, fecha_ini], map: "PK_data_conce")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model data_curso {
+  id_cuo     Int       @default(autoincrement())
+  codigo     String?   @db.Char(10)
+  accion     String    @db.Char(10)
+  cedula     String    @db.Char(10)
+  marca      Boolean?
+  a_o_cuota  Int       @map("año_cuota")
+  mes_cuota  Int
+  fecha_ini  DateTime? @db.DateTime
+  fecha_fin  DateTime? @db.DateTime
+  monto      Float?
+  fecha_can  DateTime? @db.DateTime
+  monto_pago Float?
+  monto_ori  Float?
+  manual     String?   @db.VarChar(2)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  pago_web   Int?      @default(0, map: "DF_data_curso_pago_web")
+  sincro     Int?      @default(0, map: "DF_data_curso_sincro")
+  fecha_web  DateTime? @db.DateTime
+  fecha_modi DateTime? @db.DateTime
+  porc_desc  Float?    @default(0, map: "DF_data_curso_porc_desc")
+  exon       String?   @db.VarChar(250)
+  mod_mon    String?   @db.VarChar(250)
+  cedulaA    String?   @db.VarChar(20)
+  sincro2    Int?      @default(0, map: "DF__data_curs__sincr__164F3FA9")
+  menSocDi   Float?    @default(0, map: "DF__data_curs__menSo__20A2B0EA")
+  menNoSocDi Float?    @default(0, map: "DF__data_curs__menNo__2196D523")
+
+  @@ignore
+}
+
+model data_extra {
+  id_cuo     Int       @id(map: "PK_data_extra") @default(autoincrement())
+  codigo     String    @db.Char(10)
+  accion     String    @db.Char(10)
+  a_o_cuota  Int       @map("año_cuota")
+  mes_cuota  Int
+  marca      Boolean?
+  fecha_ini  DateTime  @db.SmallDateTime
+  fecha_fin  DateTime? @db.SmallDateTime
+  fecha_can  DateTime? @db.DateTime
+  monto      Float?
+  monto_pago Float?    @default(0, map: "DF_data_extra_monto_pago")
+  monto_cuot Float?
+  monto_ori  Float?    @default(0, map: "DF_data_extra_monto_ori")
+  manual     String?   @db.VarChar(2)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  exon       String?   @db.VarChar(250)
+  mod_mon    String?   @db.VarChar(250)
+  divisa     Float?
+  tipo       Int?      @default(0, map: "DF_data_extra_tipo")
+  fecha_modi DateTime? @default(now(), map: "DF_data_extra_fecha_modi") @db.DateTime
+  pago_web   Int?      @default(0, map: "DF_data_extra_pago_web")
+  sincro     Int?      @default(0, map: "DF_data_extra_sincro")
+  fecha_web  DateTime? @db.DateTime
+  porc_desc  Float?    @default(0, map: "DF_data_extra_porc_desc")
+  porc_mora  Float?    @default(0, map: "DF_data_extra_porc_mora")
+  desc_deta  String?   @db.VarChar(250)
+  PorDesWeb  Float?    @default(0, map: "DF_data_extra_PorDesWeb")
+  sincro2    Int?      @default(0, map: "DF__data_extr__sincr__1466F737")
+  tipo_socio Int?
+}
+
+model data_giros {
+  id_cuo     Int       @id(map: "PK_data_giros") @default(autoincrement())
+  accion     String    @db.Char(10)
+  a_o_cuota  Int       @map("año_cuota")
+  mes_cuota  Int
+  descripcio String?   @db.VarChar(15)
+  monto      Float?
+  marca      Boolean?
+  fecha_ini  DateTime? @db.SmallDateTime
+  fecha_fin  DateTime? @db.SmallDateTime
+  fecha_can  DateTime? @db.DateTime
+  iva_ser    Float?
+  numero_fac String?   @db.Char(10)
+  numero_dep String?   @db.VarChar(50)
+  banco      String?   @db.VarChar(50)
+  manual     String?   @db.VarChar(2)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  exon       String?   @db.VarChar(250)
+  mod_mon    String?   @db.VarChar(250)
+  pago_web   Int?      @default(0, map: "DF_data_giros_pago_web")
+  sincro     Int?      @default(0, map: "DF_data_giros_sincro")
+  fecha_web  DateTime? @db.DateTime
+  fecha_modi DateTime? @default(now(), map: "DF_data_giros_fecha_modi") @db.DateTime
+  sincro2    Int?      @default(0, map: "DF__data_giro__sincr__155B1B70")
+  divisa     Float?    @default(0, map: "DF__data_giro__divis__4C4C28FE")
+  monto_pago Float?    @default(0, map: "DF__data_giro__monto__53B8409C")
+}
+
+model data_mante {
+  id_cuo     Int       @default(autoincrement())
+  codigo     String?   @db.Char(10)
+  accion     String    @db.Char(10)
+  a_o_cuota  Decimal   @map("año_cuota") @db.Decimal(4, 0)
+  mes_cuota  Decimal   @db.Decimal(2, 0)
+  marca      Boolean?
+  fecha_ini  DateTime? @db.SmallDateTime
+  fecha_fin  DateTime? @db.SmallDateTime
+  fecha_can  DateTime? @db.DateTime
+  monto      Float?
+  monto_pago Float?    @default(0, map: "DF__data_mant__monto__1C7D1A4B")
+  monto_cuot Float?
+  monto_ori  Float?    @default(0, map: "DF__data_mant__monto__1D713E84")
+  manual     String?   @db.VarChar(20)
+  factura    String?   @db.VarChar(10)
+  NC         String?   @db.VarChar(10)
+  exon       String?   @db.VarChar(250)
+  mod_mon    String?   @db.VarChar(250)
+  inv_exon   Int?      @default(0, map: "DF__data_mant__inv_e__1E6562BD")
+  bra_exon   Int?      @default(0, map: "DF__data_mant__bra_e__1F5986F6")
+  divisa     Float?    @default(0, map: "DF__data_mant__divis__204DAB2F")
+  tipo       Int?      @default(0, map: "DF__data_mante__tipo__2141CF68")
+  fecha_modi DateTime? @default(now(), map: "DF__data_mant__fecha__2235F3A1") @db.DateTime
+  pago_web   Int?      @default(0, map: "DF__data_mant__pago___232A17DA")
+  sincro     Int?      @default(0, map: "DF__data_mant__sincr__241E3C13")
+  fecha_web  DateTime? @db.DateTime
+  porc_desc  Float?    @default(0, map: "DF__data_mant__porc___2512604C")
+  porc_mora  Float?    @default(0, map: "DF__data_mant__porc___26068485")
+  monto_fam  Float?    @default(0, map: "DF__data_mant__monto__26FAA8BE")
+  canti_fam  Int?      @default(0, map: "DF__data_mant__canti__27EECCF7")
+  divisa_fam Float?    @default(0, map: "DF__data_mant__divis__28E2F130")
+  tipo_socio Int?      @default(0, map: "DF__data_mant__tipo___29D71569")
+  desc_deta  String?   @db.VarChar(250)
+  PorDesWeb  Float?    @default(0, map: "DF__data_mant__PorDe__2ACB39A2")
+  sincro2    Int?      @default(0, map: "DF__data_mant__sincr__2BBF5DDB")
+
+  @@id([accion, a_o_cuota, mes_cuota], map: "PK_data_mante_copy1")
+}
+
+model deta_factura {
+  id           Int       @default(autoincrement())
+  numero       String    @db.Char(10)
+  accion       String    @db.Char(10)
+  descripcio   String    @db.VarChar(150)
+  pvp          Float
+  cantidad     Int
+  importe      Float
+  valor_imp    Float
+  fecha        DateTime  @db.SmallDateTime
+  fecha_hora   DateTime  @db.DateTime
+  status       Boolean?
+  tipo         String?   @db.VarChar(10)
+  id_ref       Int?
+  caja         String?   @db.Char(2)
+  desc_serv    String?   @db.VarChar(150)
+  por_dsto     Float?
+  pvp_dsto     Float?
+  mes          Int?
+  ano          Int?
+  fecha_anu    DateTime? @db.DateTime
+  NC           String?   @db.VarChar(10)
+  Fis_NoFis    Boolean?  @default(false, map: "DF_deta_factura_Fis_NoFis")
+  fecha_server DateTime? @default(now(), map: "DF_deta_factura_fecha_server") @db.DateTime
+
+  @@id([id, numero], map: "PK_deta_factura")
+}
+
+model deta_socios {
+  id_fam      Int       @default(autoincrement())
+  activa      Boolean?
+  status      Int?
+  accion      String    @db.VarChar(12)
+  nfcId       String?   @default("0", map: "DF_deta_socios_nfcId_1") @db.VarChar(20)
+  ced_fam     String    @db.VarChar(20)
+  nom_fam     String?   @db.VarChar(50)
+  fec_fam     DateTime? @db.DateTime
+  sexo_fam    Int?
+  par_fam     Int?
+  cel_fam     String?   @default(" ", map: "DF_deta_socios_cel_fam") @db.VarChar(50)
+  email_fam   String?   @default(" ", map: "DF_deta_socios_email_fam") @db.VarChar(150)
+  fecha_car   DateTime? @db.DateTime
+  fecha_crea  DateTime? @db.DateTime
+  parentesco  String?   @db.VarChar(50)
+  sexo        String?   @db.VarChar(50)
+  fecha_des   DateTime? @db.DateTime
+  carta_sol   DateTime? @db.DateTime
+  susp_desde  DateTime? @db.DateTime
+  susp_hasta  DateTime? @db.DateTime
+  date_access DateTime? @default(now(), map: "DF_deta_socios_date_access_1") @db.DateTime
+  fecha_modi  DateTime? @db.SmallDateTime
+  id_nfc      Int?      @default(0, map: "DF_deta_socios_id_nfc_1")
+  edo_civil   Boolean?  @default(false, map: "DF__deta_soci__edo_c__4F1DA8B1")
+  idDig       Boolean?  @default(false, map: "DF__deta_soci__idDig__785FB566")
+  fecIdDig    DateTime? @db.DateTime
+
+  @@id([accion, ced_fam], map: "PK_deta_socios")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model disfruteCargos {
+  id         Int       @default(autoincrement())
+  accion     String?   @db.VarChar(10)
+  descripcio String    @db.VarChar(50)
+  pvp        Float
+  cantidad   Float
+  importe    Float
+  valor_imp  Float
+  tipo       String?   @db.VarChar(10)
+  id_ser     Int?
+  fecha      DateTime? @db.Date
+  fecha_hora DateTime? @default(now(), map: "DF__disfruteC__fecha__4FC7B427") @db.DateTime
+  idModulo   String?   @db.VarChar(50)
+  activo     Boolean?  @default(true, map: "DF_disfruteCargos_activo")
+  mes_cuota  Int?      @default(0, map: "DF__disfruteC__mes_c__0AB36FCB")
+  ano_cuota  Int?      @default(0, map: "DF__disfruteC__ano_c__0BA79404")
+  descri     String?   @db.VarChar(50)
+  divisa     Float?    @default(0, map: "DF_disfruteCargos_divisa")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model disfruteControl {
+  id         Int       @default(autoincrement())
+  accionT    String?   @db.VarChar(10)
+  accionD    String?   @db.VarChar(50)
+  meses      Int?
+  fecha_ini  DateTime? @db.DateTime
+  fecha_fin  DateTime? @db.DateTime
+  fecha_hora DateTime? @default(now(), map: "DF__disfruteC__fecha__4BF72343") @db.DateTime
+  numero     String?   @default(" ", map: "DF__disfruteC__numer__4CEB477C") @db.VarChar(10)
+  hecho      Boolean?  @default(false, map: "DF__disfruteC__hecho__4DDF6BB5")
+
+  @@ignore
+}
+
+model dispositivos {
+  id_disp     Int       @default(autoincrement())
+  descripcio  String?   @db.VarChar(50)
+  ip          String    @db.VarChar(50)
+  puerto      String?   @db.VarChar(50)
+  url         String?   @db.VarChar(200)
+  ubicacion   String?   @db.VarChar(50)
+  tipo        Int?
+  activo      Boolean?  @default(true, map: "DF_dispositivos_activo")
+  mayor_edad  Boolean?
+  lectorBarra Int?
+  visor       Boolean?
+  actualizado DateTime? @db.DateTime
+
+  @@id([id_disp, ip], map: "PK_dispositivos")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model edo_civil {
+  id_edo_civ Int?
+  estado_civ String? @db.Char(20)
+
+  @@ignore
+}
+
+model Eventos {
+  id_evento  Int       @id(map: "PK_Eventos") @default(autoincrement())
+  dstarttime DateTime  @db.DateTime
+  horaIniOri DateTime? @db.DateTime
+  dendtime   DateTime  @db.DateTime
+  cevent     String    @db.Char(100)
+  cnotes     String    @db.Char(100)
+  ncolor     Int?
+  id_ser     Int?      @default(0, map: "DF__Eventos__id_ser__08C03A61")
+  sincro2    Int?      @default(0, map: "DF__Eventos__sincro2__09B45E9A")
+  fecha_modi DateTime? @default(now(), map: "DF__Eventos__fecha_m__0AA882D3") @db.DateTime
+  accion     String?   @db.VarChar(10)
+  cedula     String?   @db.VarChar(20)
+  factura    String?   @db.VarChar(20)
+  nombre     String?   @db.VarChar(150)
+  ncolor2    Int?
+  montoD     Float?    @default(-1, map: "DF_Eventos_montoD")
+  acta       String?   @default(" ", map: "DF_Eventos_acta") @db.VarChar(50)
+}
+
+model forma_pago_web {
+  id_fp      Int      @id(map: "PK_forma_pago_web")
+  id_pagoweb Int
+  monto      Float
+  ref        String   @db.Char(100)
+  banco      Int
+  fec_fp     DateTime @db.DateTime
+  tipo       Int
+  para       String?  @default("F", map: "DF_forma_pago_web_para") @db.Char(1)
+  PorDesWeb  Float?   @default(0, map: "DF_forma_pago_web_PorDesWeb")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model formas_de_pagos {
+  id         Int      @default(autoincrement())
+  descripcio String   @db.Char(50)
+  monto      Float?
+  numero     String?  @db.VarChar(20)
+  documento  String?  @db.VarChar(20)
+  id_banco   Int?
+  banco      String?  @db.VarChar(20)
+  PagoImpFis String?  @db.Char(4)
+  impuesto   Float?
+  pinpad     Boolean?
+  ref        String?  @db.VarChar(50)
+  respuesta  String?  @db.Text
+
+  @@ignore
+}
+
+model formas_pagos {
+  autonum      Int       @default(autoincrement())
+  numero       String    @db.Char(10)
+  id_tipo      Int?
+  c_descrip    String?   @db.VarChar(50)
+  descripcio   String?   @db.VarChar(50)
+  cantidad     Int?
+  monto        Float?
+  id_distri    String?   @db.VarChar(20)
+  monto_tick   Float?
+  tipo_pago    String?   @db.VarChar(20)
+  c_monto      String?   @db.VarChar(20)
+  c_monto_t    String?   @db.VarChar(20)
+  monto_real   Float?
+  titulo       String?   @db.VarChar(50)
+  documento    String?   @db.VarChar(50)
+  ref          String?   @db.VarChar(20)
+  respuesta    String?   @db.Text
+  nro_cuenta   String?   @db.VarChar(50)
+  cajero       String?   @db.Char(10)
+  caja         String?   @db.Char(10)
+  fecha_hora   DateTime? @db.DateTime
+  marca        String?   @db.Char(1)
+  id_banco     Int?
+  tipo_vpos    Int?
+  PagoImpFis   String?   @db.Char(3)
+  status       Boolean?  @default(false, map: "DF_formas_pagos_activo")
+  fecha_anu    DateTime? @db.DateTime
+  NC           String?   @db.Char(10)
+  fecha        DateTime? @db.DateTime
+  fact_afec    String?   @db.VarChar(10)
+  seri_fisc    String?   @db.VarChar(20)
+  Fis_NoFis    Boolean?  @default(false, map: "DF_formas_pagos_Fis_NoFis")
+  fecha_server DateTime? @default(now(), map: "DF_formas_pagos_fecha_server") @db.DateTime
+
+  @@id([autonum, numero], map: "PK_formas_pagos")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model funciones {
+  id_funcion Int     @default(autoincrement())
+  funcion    String? @db.Char(25)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Hcarnet_traba {
+  id_direc    Int?
+  nombre      String?   @db.Char(80)
+  cedula      String?   @db.VarChar(15)
+  cargo       String?   @db.VarChar(50)
+  celular     String?   @default("", map: "DF__Hcarnet_t__celul__5CB79AF1") @db.VarChar(16)
+  email       String?   @default("", map: "DF__Hcarnet_t__email__5DABBF2A") @db.VarChar(150)
+  tipo        Int?
+  fecha_venc  DateTime? @db.DateTime
+  fecha_hora  DateTime? @db.DateTime
+  activo      Int?      @default(0, map: "DF__Hcarnet_t__activ__5E9FE363")
+  nfcId       String?   @db.VarChar(20)
+  id_nfc      Int?      @default(0, map: "DF__Hcarnet_t__id_nf__5F94079C")
+  date_access DateTime? @db.DateTime
+  accion      String?   @db.VarChar(10)
+  idConce     Int?
+  fecha_car   DateTime? @db.DateTime
+  fecha_modi  DateTime? @db.DateTime
+  status      Int?
+  susp_desde  DateTime? @db.DateTime
+  susp_hasta  DateTime? @db.DateTime
+  restringe   String?   @default("", map: "DF__Hcarnet_t__restr__60882BD5") @db.VarChar(250)
+  idDig       Boolean?  @default(false, map: "DF__Hcarnet_t__idDig__1E855E4E")
+  fecIdDig    DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Hcuotas {
+  id_cuota    Int?
+  codigo      String?   @db.Char(10)
+  tipo_cuota  Int?
+  descripcio  String?   @db.VarChar(50)
+  monto       Float?
+  iva_ser     Float?
+  calculo_ser Int?
+  mes_ini     Int?
+  a_o_ini     Int?      @map("año_ini")
+  mes_fin     Int?
+  a_o_fin     Int?      @map("año_fin")
+  inicio      DateTime? @db.SmallDateTime
+  fin         DateTime? @db.SmallDateTime
+  divisa      Float?
+  tipo        Int?
+  fecha_modi  DateTime? @db.DateTime
+  ImpExcInc   Int?
+  monto_ori   Float?
+  divFamT     Float?    @default(0, map: "DF__HCuotas__divFamT__7CC477D0")
+  monFamT     Float?    @default(0, map: "DF__HCuotas__monFamT__7DB89C09")
+  divFamD     Float?    @default(0, map: "DF__HCuotas__divFamD__7EACC042")
+  monFamD     Float?    @default(0, map: "DF__HCuotas__monFamD__7FA0E47B")
+  montoD      Float?
+  divisaD     Float?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Hdeta_socios {
+  id_fam      Int?
+  activa      Boolean?
+  status      Int?
+  accion      String?   @db.VarChar(12)
+  nfcId       String?   @db.VarChar(20)
+  ced_fam     String?   @db.VarChar(20)
+  nom_fam     String?   @db.VarChar(50)
+  fec_fam     DateTime? @db.DateTime
+  sexo_fam    Int?
+  par_fam     Int?
+  cel_fam     String?   @db.VarChar(50)
+  email_fam   String?   @db.VarChar(150)
+  fecha_car   DateTime? @db.DateTime
+  fecha_crea  DateTime? @db.DateTime
+  parentesco  String?   @db.VarChar(50)
+  sexo        String?   @db.VarChar(50)
+  fecha_des   DateTime? @db.DateTime
+  carta_sol   DateTime? @db.DateTime
+  susp_desde  DateTime? @db.DateTime
+  susp_hasta  DateTime? @db.DateTime
+  date_access DateTime? @db.DateTime
+  fecha_modi  DateTime? @db.DateTime
+  id_nfc      Int?
+  edo_civil   Boolean?
+  idDig       Boolean?  @default(false, map: "DF__Hdeta_soc__idDig__206DA6C0")
+  fecIdDig    DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model HFactor {
+  id_factora Int       @default(autoincrement())
+  monto      Float
+  nombre     String    @db.VarChar(80)
+  fecha_modi DateTime? @db.SmallDateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model HHmae_socios {
+  id_socio      Int?
+  activa        Boolean?
+  status        Int?
+  nfcId         String?   @db.VarChar(20)
+  accion        String?   @db.VarChar(10)
+  tipo_socio    Int?
+  fecha_ing     DateTime? @db.DateTime
+  fecha_fin     DateTime? @db.DateTime
+  tipo_razon    Int?
+  nacionalid    Int?
+  cedula        String?   @db.VarChar(20)
+  nombre        String?   @db.VarChar(150)
+  fecha_nac     DateTime? @db.DateTime
+  estado_civ    Int?
+  sexo          Int?
+  telefonos     String?   @db.VarChar(50)
+  direccion     String?   @db.VarChar(254)
+  celular       String?   @db.VarChar(20)
+  e_mail        String?   @db.VarChar(150)
+  zona          Int?
+  empresa_tra   String?   @db.VarChar(80)
+  direccion_tra String?   @db.VarChar(200)
+  telefonos_tra String?   @db.VarChar(30)
+  fax_tra       String?   @db.VarChar(20)
+  e_mail_tra    String?   @db.VarChar(50)
+  fecha_car     DateTime? @db.DateTime
+  funcion       Int?
+  cedula_rep    String?   @db.VarChar(10)
+  nombre_rep    String?   @db.Char(50)
+  celular_rep   String?   @db.VarChar(20)
+  telefonos_rep String?   @db.VarChar(40)
+  e_mail_rep    String?   @db.VarChar(50)
+  fecha_hora    DateTime? @db.DateTime
+  marca         Boolean?
+  cuotas_man    Int?
+  cuotas_ext    Int?
+  cuotas_gir    Int?
+  monto_man     Int?
+  monto_ext     Int?
+  monto_gir     Int?
+  susp_desde    DateTime? @db.DateTime
+  susp_hasta    DateTime? @db.DateTime
+  rif_tra       String?   @db.VarChar(20)
+  fact_juri     Int?
+  profesion     String?   @db.VarChar(100)
+  date_access   DateTime? @db.DateTime
+  brazaletes    Int?
+  AddCedMenor   Int?
+  caneyExon     Int?
+  fecha_modi    DateTime? @db.DateTime
+  id_nfc        Int?
+  fecha_mat     DateTime? @db.DateTime
+  fechaHonor    DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hist_ingreso_alumnos {
+  id_h         BigInt    @default(autoincrement())
+  localizacion String?   @db.VarChar(Max)
+  ip           String?   @db.VarChar(50)
+  fecha        DateTime? @db.Date
+  hora         String?   @db.VarChar(50)
+  mensaje      String?   @db.VarChar(Max)
+  tarjeta      String?   @db.VarChar(50)
+  accion       String?   @db.VarChar(50)
+  cedula       String?   @db.VarChar(50)
+  nombre       String?   @db.VarChar(Max)
+  fecha_modi   DateTime? @db.DateTime
+  exec_log     String?   @default("Card", map: "DF_hist_ingreso_alumnos_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hist_ingreso_invitados {
+  id_h         BigInt    @default(autoincrement())
+  localizacion String?   @db.VarChar(Max)
+  ip           String?   @db.VarChar(50)
+  fecha        DateTime? @db.Date
+  hora         String?   @db.VarChar(50)
+  mensaje      String?   @db.VarChar(Max)
+  tarjeta      String?   @db.VarChar(50)
+  accion       String?   @db.VarChar(50)
+  cedula       String?   @db.VarChar(50)
+  nombre       String?   @db.VarChar(Max)
+  fecha_modi   DateTime? @db.DateTime
+  exec_log     String?   @default("Card", map: "DF_hist_ingreso_invitados_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hist_ingreso_personal {
+  id_h         BigInt    @default(autoincrement())
+  localizacion String?   @db.VarChar(Max)
+  ip           String?   @db.VarChar(50)
+  fecha        DateTime? @db.Date
+  hora         String?   @db.VarChar(50)
+  mensaje      String?   @db.VarChar(Max)
+  tarjeta      String?   @db.VarChar(50)
+  accion       String?   @db.VarChar(50)
+  cedula       String?   @db.VarChar(50)
+  nombre       String?   @db.VarChar(Max)
+  fecha_modi   DateTime? @db.DateTime
+  exec_log     String?   @default("Card", map: "DF_hist_ingreso_personal_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hist_ingreso_socios {
+  id_h         BigInt    @default(autoincrement())
+  localizacion String?   @db.VarChar(Max)
+  ip           String?   @db.VarChar(50)
+  fecha        DateTime? @db.Date
+  hora         String?   @db.VarChar(50)
+  mensaje      String?   @db.VarChar(Max)
+  tarjeta      String?   @db.VarChar(50)
+  accion       String?   @db.VarChar(50)
+  cedula       String?   @db.VarChar(50)
+  nombre       String?   @db.VarChar(Max)
+  fecha_modi   DateTime? @db.DateTime
+  exec_log     String?   @default("Card", map: "DF_hist_ingreso_socios_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model hist_ingreso_visitas {
+  id_h         BigInt    @default(autoincrement())
+  localizacion String?   @db.VarChar(Max)
+  ip           String?   @db.VarChar(50)
+  fecha        DateTime? @db.Date
+  hora         String?   @db.VarChar(50)
+  mensaje      String?   @db.VarChar(Max)
+  tarjeta      String?   @db.VarChar(50)
+  accion       String?   @db.VarChar(50)
+  cedula       String?   @db.VarChar(50)
+  nombre       String?   @db.VarChar(Max)
+  fecha_modi   DateTime? @db.DateTime
+  exec_log     String?   @default("Card", map: "DF_hist_ingreso_visitas_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Hmae_socios {
+  id_socio      Int?
+  activa        Boolean?
+  status        Int?
+  nfcId         String?   @db.VarChar(20)
+  accion        String?   @db.VarChar(10)
+  tipo_socio    Int?
+  fecha_ing     DateTime? @db.DateTime
+  fecha_fin     DateTime? @db.DateTime
+  tipo_razon    Int?
+  nacionalid    Int?
+  cedula        String?   @db.VarChar(20)
+  nombre        String?   @db.VarChar(150)
+  fecha_nac     DateTime? @db.DateTime
+  estado_civ    Int?
+  sexo          Int?
+  telefonos     String?   @db.VarChar(50)
+  direccion     String?   @db.VarChar(254)
+  celular       String?   @db.VarChar(20)
+  e_mail        String?   @db.VarChar(150)
+  zona          Int?
+  empresa_tra   String?   @db.VarChar(80)
+  direccion_tra String?   @db.VarChar(200)
+  telefonos_tra String?   @db.VarChar(30)
+  fax_tra       String?   @db.VarChar(20)
+  e_mail_tra    String?   @db.VarChar(50)
+  fecha_car     DateTime? @db.DateTime
+  funcion       Int?
+  cedula_rep    String?   @db.VarChar(10)
+  nombre_rep    String?   @db.Char(50)
+  celular_rep   String?   @db.VarChar(20)
+  telefonos_rep String?   @db.VarChar(40)
+  e_mail_rep    String?   @db.VarChar(50)
+  fecha_hora    DateTime? @db.DateTime
+  marca         Boolean?
+  cuotas_man    Int?
+  cuotas_ext    Int?
+  cuotas_gir    Int?
+  monto_man     Int?
+  monto_ext     Int?
+  monto_gir     Int?
+  susp_desde    DateTime? @db.DateTime
+  susp_hasta    DateTime? @db.DateTime
+  rif_tra       String?   @db.VarChar(20)
+  fact_juri     Int?
+  profesion     String?   @db.VarChar(100)
+  date_access   DateTime? @db.DateTime
+  brazaletes    Int?
+  AddCedMenor   Int?
+  caneyExon     Int?
+  fecha_modi    DateTime? @db.DateTime
+  id_nfc        Int?
+  fecha_mat     DateTime? @db.DateTime
+  fechaHonor    DateTime? @db.DateTime
+  idDig         Boolean?  @default(false, map: "DF__Hmae_soci__idDig__1F798287")
+  fecIdDig      DateTime? @db.DateTime
+  nota          String?   @default("", map: "DF__Hmae_socio__nota__760D58A0") @db.VarChar(250)
+  paraDisfru    Int?      @default(0, map: "DF__Hmae_soci__paraD__77017CD9")
+  noVenta       Boolean?  @default(false, map: "DF__Hmae_soci__noVen__77F5A112")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model horarios {
+  id_hora     Int      @default(autoincrement())
+  bloque      Int
+  horaVisible String?  @db.VarChar(50)
+  horaTomar   String?  @db.VarChar(50)
+  actvio      Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Hrestricciones {
+  id_rest     Int       @default(autoincrement())
+  tipo_rest   Int?
+  grup_fam    Int?
+  accion      String    @db.VarChar(20)
+  fecha_modi  DateTime? @default(now(), map: "DF_Hrestricciones_fecha_modi") @db.DateTime
+  fecha_hasta DateTime? @db.DateTime
+  motivo      String?   @db.VarChar(1000)
+  cedula      String?   @db.VarChar(12)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model impuestos {
+  id_imp     Int      @default(autoincrement())
+  descri_imp String   @db.Char(30)
+  valor_imp  Float
+  imp_char   String?  @db.Char(50)
+  no_change  Boolean
+  activo     Boolean
+  libros     Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model invitados {
+  id_invit   Int       @default(autoincrement())
+  accion     String?   @db.VarChar(10)
+  cedula_i   String?   @db.VarChar(15)
+  nombre_i   String?   @db.VarChar(150)
+  nfc_i      String?   @db.VarChar(20)
+  estatus_i  String?   @db.VarChar(10)
+  id_lugar   Int?
+  lugar_i    String?   @db.VarChar(80)
+  fecha_i    DateTime? @db.DateTime
+  fecha_hora DateTime? @default(now(), map: "DF_invitados_fecha_hora") @db.DateTime
+  tipo_pase  String?   @default(" ", map: "DF__invitados__tipo___477C86E9") @db.VarChar(1)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model letras {
+  id_letra    Int     @default(autoincrement())
+  letra       String? @db.Char(2)
+  significado String? @db.VarChar(30)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model lugares {
+  id_lugar   Int
+  lugar      String   @db.VarChar(80)
+  gratis     Int?
+  cupo       Int?
+  id_periodo Int?
+  condicion  Int?
+  acumula    Boolean?
+  idDig      Int?     @default(0, map: "DF__lugares__idDig__280EC888")
+  activoVisi Boolean? @default(true, map: "DF__lugares__activoV__4E347170")
+  solventes  Boolean? @default(false, map: "DF__lugares__solvent__2AB62B09")
+
+  @@ignore
+}
+
+model mae_factura {
+  id           Int       @default(autoincrement())
+  accion       String    @db.Char(10)
+  numero       String    @db.Char(10)
+  total        Float
+  sub_total    Float
+  recibido     Float?
+  cambio       Float?
+  cedula       String?   @db.Char(20)
+  monto_iva    Float?    @default(0, map: "DF_mae_factura_monto_iva")
+  base         Float?    @default(0, map: "DF_mae_factura_base")
+  exento       Float?    @default(0, map: "DF_mae_factura_exento")
+  caja         String?   @db.Char(2)
+  cajero       String?   @db.VarChar(80)
+  monto_efe    Float?
+  monto_che    Float?
+  nro_cheque   String?   @db.VarChar(30)
+  banco        String?   @db.VarChar(30)
+  monto_tar    Float?
+  num_tar      String?   @db.Char(10)
+  tipo_pago    String?   @db.VarChar(30)
+  nro_depo     String?   @db.VarChar(30)
+  banco_depo   String?   @db.VarChar(30)
+  monto_depo   Float?
+  fecha        DateTime  @db.SmallDateTime
+  fecha_hora   DateTime? @db.DateTime
+  status       Boolean?
+  tipo         String?   @db.VarChar(50)
+  porc_dsto    Float?
+  total_o      Float?
+  sub_total_o  Float?
+  dsto         Float?
+  z            String?   @db.VarChar(50)
+  cliente      String?   @db.VarChar(250)
+  descripcio   String?   @db.VarChar(250)
+  fecha_anu    DateTime? @db.DateTime
+  NC           String?   @db.VarChar(10)
+  fact_afec    String?   @db.VarChar(10)
+  seri_fisc    String?   @db.VarChar(20)
+  Fis_NoFis    Boolean?  @default(false, map: "DF_mae_factura_Fis_NoFis")
+  fecha_server DateTime? @default(now(), map: "DF_mae_factura_fecha_server") @db.DateTime
+
+  @@id([id, accion, numero, fecha], map: "PK_mae_factura")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mae_factura_020623 {
+  id           Int
+  accion       String    @db.Char(10)
+  numero       String    @db.Char(10)
+  total        Float
+  sub_total    Float
+  recibido     Float?
+  cambio       Float?
+  cedula       String?   @db.Char(20)
+  monto_iva    Float?
+  base         Float?
+  exento       Float?
+  caja         String?   @db.Char(2)
+  cajero       String?   @db.VarChar(80)
+  monto_efe    Float?
+  monto_che    Float?
+  nro_cheque   String?   @db.VarChar(30)
+  banco        String?   @db.VarChar(30)
+  monto_tar    Float?
+  num_tar      String?   @db.Char(10)
+  tipo_pago    String?   @db.VarChar(30)
+  nro_depo     String?   @db.VarChar(30)
+  banco_depo   String?   @db.VarChar(30)
+  monto_depo   Float?
+  fecha        DateTime  @db.SmallDateTime
+  fecha_hora   DateTime? @db.DateTime
+  status       Boolean?
+  tipo         String?   @db.Char(1)
+  porc_dsto    Float?
+  total_o      Float?
+  sub_total_o  Float?
+  dsto         Float?
+  z            String?   @db.Char(10)
+  cliente      String?   @db.VarChar(250)
+  descripcio   String?   @db.VarChar(250)
+  fecha_anu    DateTime? @db.DateTime
+  NC           String?   @db.VarChar(10)
+  fact_afec    String?   @db.VarChar(10)
+  seri_fisc    String?   @db.VarChar(20)
+  Fis_NoFis    Boolean?
+  fecha_server DateTime? @db.DateTime
+
+  @@ignore
+}
+
+model mae_socios {
+  id_socio      Int       @default(autoincrement())
+  activa        Boolean?
+  status        Int?
+  nfcId         String?   @default("0", map: "DF_mae_socios_nfcId_1") @db.VarChar(20)
+  accion        String    @id(map: "PK_mae_socios") @db.VarChar(15)
+  tipo_socio    Int?
+  fecha_ing     DateTime? @db.DateTime
+  fecha_fin     DateTime? @db.DateTime
+  tipo_razon    Int?      @default(1, map: "DF_mae_socios_tipo_razon")
+  nacionalid    Int?      @default(1, map: "DF_mae_socios_nacionalid")
+  cedula        String?   @db.VarChar(20)
+  nombre        String?   @db.VarChar(150)
+  fecha_nac     DateTime? @default(now(), map: "DF_mae_socios_fecha_nac") @db.DateTime
+  estado_civ    Int?      @default(1, map: "DF_mae_socios_estado_civ")
+  sexo          Int?      @default(1, map: "DF_mae_socios_sexo")
+  telefonos     String?   @default(" ", map: "DF_mae_socios_telefonos") @db.VarChar(50)
+  direccion     String?   @default(" ", map: "DF_mae_socios_direccion") @db.VarChar(254)
+  celular       String?   @default(" ", map: "DF_mae_socios_celular") @db.VarChar(20)
+  e_mail        String?   @default(" ", map: "DF_mae_socios_e_mail") @db.VarChar(150)
+  zona          Int?      @default(0, map: "DF_mae_socios_zona")
+  empresa_tra   String?   @default(" ", map: "DF_mae_socios_empresa_tra") @db.VarChar(80)
+  direccion_tra String?   @default(" ", map: "DF_mae_socios_direccion_tra") @db.VarChar(200)
+  telefonos_tra String?   @default(" ", map: "DF_mae_socios_telefonos_tra") @db.VarChar(50)
+  fax_tra       String?   @default(" ", map: "DF_mae_socios_fax_tra") @db.VarChar(20)
+  e_mail_tra    String?   @default(" ", map: "DF_mae_socios_e_mail_tra") @db.VarChar(150)
+  fecha_car     DateTime? @db.DateTime
+  funcion       Int?      @default(1, map: "DF_mae_socios_funcion")
+  cedula_rep    String?   @default(" ", map: "DF_mae_socios_cedula_rep") @db.VarChar(10)
+  nombre_rep    String?   @default(" ", map: "DF_mae_socios_nombre_rep") @db.Char(50)
+  celular_rep   String?   @default(" ", map: "DF_mae_socios_celular_rep") @db.VarChar(20)
+  telefonos_rep String?   @default(" ", map: "DF_mae_socios_telefonos_rep") @db.VarChar(40)
+  e_mail_rep    String?   @default(" ", map: "DF_mae_socios_e_mail_rep") @db.VarChar(50)
+  fecha_hora    DateTime? @db.DateTime
+  marca         Boolean?  @default(false, map: "DF_mae_socios_marca")
+  cuotas_man    Int?      @default(0, map: "DF_mae_socios_cuotas_man")
+  cuotas_ext    Int?      @default(0, map: "DF_mae_socios_cuotas_ext")
+  cuotas_gir    Int?      @default(0, map: "DF_mae_socios_cuotas_gir")
+  monto_man     Int?      @default(0, map: "DF_mae_socios_monto_man")
+  monto_ext     Int?      @default(0, map: "DF_mae_socios_monto_ext")
+  monto_gir     Int?      @default(0, map: "DF_mae_socios_monto_gir")
+  susp_desde    DateTime? @db.DateTime
+  susp_hasta    DateTime? @db.DateTime
+  rif_tra       String?   @default(" ", map: "DF_mae_socios_rif_tra") @db.VarChar(20)
+  fact_juri     Int?      @default(0, map: "DF_mae_socios_fact_juri")
+  profesion     String?   @default(" ", map: "DF_mae_socios_profesion") @db.VarChar(100)
+  date_access   DateTime? @default(now(), map: "DF_mae_socios_date_access") @db.DateTime
+  brazaletes    Int?      @default(0, map: "DF_mae_socios_brazaletes")
+  AddCedMenor   Int?      @default(0, map: "DF_mae_socios_AddCedMenor")
+  caneyExon     Int?      @default(0, map: "DF_mae_socios_caneyExon")
+  fecha_modi    DateTime? @db.SmallDateTime
+  id_nfc        Int?      @default(0, map: "DF_mae_socios_id_nfc_1")
+  fecha_mat     DateTime? @db.DateTime
+  fechaHonor    DateTime? @db.DateTime
+  idDig         Boolean?  @default(false, map: "DF__mae_socio__idDig__776B912D")
+  fecIdDig      DateTime? @db.DateTime
+  nota          String?   @default("", map: "DF__mae_socios__nota__7330EBF5") @db.VarChar(250)
+  paraDisfru    Int?      @default(0, map: "DF__mae_socio__paraD__7425102E")
+  noVenta       Boolean?  @default(false, map: "DF__mae_socio__noVen__75193467")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mensajes {
+  id_msg    Int     @default(autoincrement())
+  mensaje   String? @db.VarChar(50)
+  fontcolor Int?
+  backcolor Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model mercado {
+  codigo_bar String    @db.Char(25)
+  desc_corta String    @db.Char(25)
+  pvp        Float
+  cantidad   Float
+  importe    Float
+  fecha      DateTime? @db.DateTime
+  valor_imp  Float
+  serial     String?   @db.Char(50)
+  tipo_venta Float?
+  caja       String?   @db.Char(10)
+  cajero     String?   @db.Char(10)
+  turno      Float?
+  mes        Int?
+  ano        Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model meses {
+  cod_mes Decimal @db.Decimal(2, 0)
+  mes     String  @db.Char(11)
+  marca   Boolean
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model monedas {
+  id_moneda Int      @default(autoincrement())
+  visual    String?  @db.VarChar(50)
+  moneda    String?  @db.VarChar(50)
+  siglas    String?  @db.Char(10)
+  val_x_dol Float?
+  activa    Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model nacionalidades {
+  id_nacionalidad Int    @default(autoincrement())
+  nacionalidad    String @db.VarChar(20)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model niveles {
+  id_nivel   Int    @default(autoincrement())
+  descripcio String @db.VarChar(20)
+
+  @@ignore
+}
+
+model no_socios {
+  ced_rif    String    @id(map: "PK_no_socios") @db.VarChar(25)
+  nom_raz    String?   @db.VarChar(60)
+  direccion  String?   @db.VarChar(200)
+  telefonos  String?   @db.VarChar(50)
+  e_mail     String?   @db.VarChar(100)
+  correo     String?   @default(" ", map: "DF_no_socios_correo") @db.VarChar(100)
+  tipo_cli   Boolean?
+  caja       String?   @db.VarChar(4)
+  cajero     String?   @db.VarChar(100)
+  tipo       String?   @db.VarChar(50)
+  lista_gris Boolean?  @default(false, map: "DF_no_socios_lista_gris")
+  fecha_nac  DateTime? @db.DateTime
+  fecha_crea DateTime? @default(now(), map: "DF_no_socios_fecha_crea") @db.DateTime
+  nfcId      String?   @default("0", map: "DF_no_socios_nfcId") @db.VarChar(50)
+  id_nfc     Int?      @default(0, map: "DF_no_socios_id_nfc")
+  id_no_soc  Int       @default(autoincrement())
+}
+
+model notas_credito {
+  id_nota    Int       @id(map: "PK_notas_credito") @default(autoincrement())
+  accion     String?   @db.VarChar(10)
+  cedula     String?   @db.VarChar(20)
+  monto      Float?
+  numero     String?   @db.VarChar(10)
+  serial_fis String?   @db.VarChar(10)
+  fecha_hora DateTime? @db.DateTime
+  caja       String?   @db.Char(10)
+  operador   String?   @db.VarChar(50)
+  motivo     String?   @db.VarChar(250)
+  activa     Boolean?
+  factura    String?   @db.Char(10)
+  tipo       Int?      @default(1, map: "DF__notas_cred__tipo__7A721B0A")
+  sincro2    Int?      @default(0, map: "DF__notas_cre__sincr__011F1899")
+  fecha_modi DateTime? @default(now(), map: "DF__notas_cre__fecha__02133CD2") @db.DateTime
+  monto_ori  Float?
+  fecha      DateTime? @db.DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model parentescos {
+  id_par     Int      @default(autoincrement())
+  parentesco String?  @db.VarChar(50)
+  activo     Boolean? @default(false, map: "DF_parentescos_activo")
+  sexo       Int?
+  conHonor   Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model personas {
+  id             Int       @default(autoincrement())
+  status         Int?      @default(0, map: "DF_personas_status")
+  actionNumber   String    @db.VarChar(10)
+  credential     String    @db.VarChar(20)
+  name           String?   @db.VarChar(150)
+  birthDate      DateTime? @db.DateTime
+  phone          String?   @db.VarChar(150)
+  email          String?   @db.VarChar(160)
+  personType     Int?
+  from           DateTime? @db.DateTime
+  to             DateTime? @db.DateTime
+  expirationDate DateTime? @db.DateTime
+  fechaHora      DateTime? @default(now(), map: "DF_personas_fechaHora") @db.DateTime
+  suspendedFrom  DateTime? @db.DateTime
+  suspendedTo    DateTime? @db.DateTime
+  nfcId          String?   @db.VarChar(50)
+  sincro         Boolean?  @default(true, map: "DF_personas_sincro")
+
+  @@ignore
+}
+
+model proveedores {
+  id_prov    Int       @default(autoincrement())
+  nombre     String    @db.VarChar(50)
+  rif        String    @id(map: "PK_proveedores") @db.Char(15)
+  direccion  String?   @db.VarChar(150)
+  telefonos  String?   @db.VarChar(50)
+  fax        String?   @db.VarChar(50)
+  e_mail     String?   @db.VarChar(80)
+  representa String?   @db.VarChar(50)
+  celular    String?   @db.VarChar(50)
+  prod_nac   Boolean?
+  prod_imp   Boolean?
+  tipo_prov  Int?
+  dsto_pro_p Float?
+  activo     Boolean?
+  dias_cred  Int?
+  limi_cred  Float?
+  proc_islr  Float?
+  ret_iva    Float?
+  fecha_crea DateTime? @db.SmallDateTime
+}
+
+model servicios {
+  id_ser       Int       @id(map: "PK_servicios") @default(autoincrement())
+  descripcio   String    @db.VarChar(200)
+  precio_socio Float?
+  precio_gene  Float?
+  iva_ser      Float?
+  cantidad     Int?      @default(0, map: "DF_servicios_cantidad")
+  id_lugar     Int?      @default(0, map: "DF_servicios_id_lugar")
+  activo       Boolean?
+  divi_socio   Float?
+  divi_gener   Float?
+  fecha_modi   DateTime? @db.DateTime
+  Fis_NoFis    Int?
+  statusPers   Int?      @default(1, map: "DF__SERVICIOS__statu__7C5A637C")
+  eventos      Int?      @default(0, map: "DF__servicios__event__7E42ABEE")
+  ncolor       Int?      @default(0, map: "DF__servicios__ncolo__7F36D027")
+  capacidad    Int?      @default(0, map: "DF__servicios__capac__002AF460")
+  cta_contab   String?   @default(" ", map: "DF_servicios_cta_contab") @db.VarChar(50)
+  idModulo     String?   @db.VarChar(50)
+  nomModulo    String?   @db.VarChar(249)
+  existencia   Int?
+  inventario   Boolean?  @default(false, map: "DF__servicios__inven__407061FE")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model sexos {
+  id_sexo Int?
+  sexo    String? @db.Char(20)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model soporte {
+  id_soporte Int      @default(autoincrement())
+  nombre     String?  @db.VarChar(50)
+  celular    String?  @db.VarChar(50)
+  tipo       Int?
+  activo     Boolean?
+
+  @@ignore
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B61F00EF4B5") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Tdeta_socios {
+  id_fam      Int?
+  activa      Boolean?
+  status      Int?
+  accion      String?   @db.VarChar(12)
+  nfcId       String?   @db.VarChar(20)
+  ced_fam     String?   @db.VarChar(20)
+  nom_fam     String?   @db.VarChar(50)
+  fec_fam     DateTime? @db.DateTime
+  sexo_fam    Int?
+  par_fam     Int?
+  cel_fam     String?   @db.VarChar(50)
+  email_fam   String?   @db.VarChar(150)
+  fecha_car   DateTime? @db.DateTime
+  fecha_crea  DateTime? @db.DateTime
+  parentesco  String?   @db.VarChar(50)
+  sexo        String?   @db.VarChar(50)
+  fecha_des   DateTime? @db.DateTime
+  carta_sol   DateTime? @db.DateTime
+  susp_desde  DateTime? @db.DateTime
+  susp_hasta  DateTime? @db.DateTime
+  date_access DateTime? @db.DateTime
+  fecha_modi  DateTime? @db.DateTime
+  id_nfc      Int?
+  edo_civil   Boolean?
+  idDig       Boolean?  @default(false, map: "DF_Tdeta_socios_idDig")
+  fecIdDig    DateTime? @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_auditoria {
+  ID     Int      @default(autoincrement())
+  accion String?  @db.VarChar(50)
+  activo Boolean? @default(true, map: "DF_tipo_auditoria_activo")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_carnet {
+  id_carnet   Int     @default(autoincrement())
+  tipo_carnet String? @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_periodo {
+  id_periodo Int     @default(autoincrement())
+  descripcio String? @db.Char(20)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Tipo_personas {
+  idTipo     Int      @default(autoincrement())
+  descripcio String   @db.VarChar(50)
+  mesesVenc  Int
+  cardFormat String?  @db.VarChar(50)
+  background String?  @db.VarChar(50)
+  querySelec String?  @db.VarChar(500)
+  queryUpdat String?  @db.VarChar(500)
+  activo     Boolean?
+  tabla      String?  @db.VarChar(50)
+  campoBusq  String?  @db.VarChar(50)
+  campoId    String?  @db.VarChar(50)
+  campoWhere String?  @default(" ", map: "DF_Tipo_personas_campoWhere") @db.VarChar(150)
+  horario    Int?     @default(0, map: "DF_Tipo_personas_horario")
+  backSide   String?  @db.VarChar(50)
+  backImage  String?  @db.VarChar(50)
+  factura    Boolean? @default(false, map: "DF__Tipo_pers__factu__52A420D2")
+  printCargo Boolean? @default(false, map: "DF_Tipo_personas_printCargo")
+  labelCargo String?  @default("", map: "DF_Tipo_personas_labelCargo") @db.VarChar(50)
+  fechaVenc  Boolean? @default(false, map: "DF_Tipo_personas_fechaVenc")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_razon {
+  id_razon   Int?
+  tipo_razon String? @db.Char(20)
+  letra      String? @db.Char(1)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_socio {
+  id_tipo_soc Int      @default(autoincrement())
+  tipo_socio  String?  @db.VarChar(20)
+  venta       Boolean? @default(false, map: "DF_tipo_socio_venta")
+  letra       String?  @default(" ", map: "DF__tipo_soci__letra__5011CCEA") @db.Char(10)
+  activo      Boolean?
+  porcDesc    Float?
+  edad        Int?
+  antiguedad  Int?
+  mante       Boolean?
+  extra       Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipo_status {
+  id_status  Int     @default(autoincrement())
+  descripcio String? @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipocli {
+  id_empresa  String  @db.NVarChar(6)
+  agencia     String  @db.NVarChar(3)
+  codigo      String  @db.NVarChar(3)
+  nombre      String  @db.NVarChar(40)
+  codigocont  String  @db.NVarChar(45)
+  carnet      String? @db.NVarChar(255)
+  codcontcaja String? @db.NVarChar(45)
+  predeter    Float?
+  nousaweb    Float
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipocomprador {
+  id_empresa String  @db.NVarChar(6)
+  agencia    String  @db.NVarChar(3)
+  codigo     String  @db.NVarChar(6)
+  nombre     String? @db.NVarChar(45)
+  carnet     String? @db.NVarChar(255)
+
+  @@ignore
+}
+
+model tipos_pagos {
+  id         Int      @id(map: "PK_tipos_pagos") @default(autoincrement())
+  descripcio String   @db.Char(50)
+  no_change  Boolean?
+  pinpad     Int?
+  PagoImpFis String?  @db.Char(3)
+  comision   Float?   @default(0, map: "DF__tipos_pag__comis__0307610B")
+  retencion  Float?   @default(0, map: "DF__tipos_pag__reten__03FB8544")
+  iva        Float?   @default(0, map: "DF__tipos_pagos__iva__04EFA97D")
+  id_banco   Int?     @default(0, map: "DF__tipos_pag__id_ba__05E3CDB6")
+  cta_contab String?  @db.VarChar(50)
+  activo     Boolean? @default(false, map: "DF__tipos_pag__activ__06D7F1EF")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipos_pagos_WEB {
+  id         Int     @default(autoincrement())
+  descripcio String  @db.Char(50)
+  PagoImpFis String? @db.Char(3)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Tipos_Pases {
+  id_pase    Int     @default(autoincrement())
+  descripcio String? @db.VarChar(80)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tipos_servicios {
+  id_tipo    Int      @default(autoincrement())
+  descripcio String?  @db.VarChar(20)
+  tipo       Int?
+  socio      Boolean?
+  no_socio   Boolean?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Tmae_socios {
+  id_socio      Int?
+  activa        Boolean?
+  status        Int?
+  nfcId         String?   @db.VarChar(20)
+  accion        String?   @db.VarChar(10)
+  tipo_socio    Int?
+  fecha_ing     DateTime? @db.DateTime
+  fecha_fin     DateTime? @db.DateTime
+  tipo_razon    Int?
+  nacionalid    Int?
+  cedula        String?   @db.VarChar(20)
+  nombre        String?   @db.VarChar(150)
+  fecha_nac     DateTime? @db.DateTime
+  estado_civ    Int?
+  sexo          Int?
+  telefonos     String?   @db.VarChar(50)
+  direccion     String?   @db.VarChar(254)
+  celular       String?   @db.VarChar(20)
+  e_mail        String?   @db.VarChar(150)
+  zona          Int?
+  empresa_tra   String?   @db.VarChar(80)
+  direccion_tra String?   @db.VarChar(200)
+  telefonos_tra String?   @db.VarChar(30)
+  fax_tra       String?   @db.VarChar(20)
+  e_mail_tra    String?   @db.VarChar(50)
+  fecha_car     DateTime? @db.DateTime
+  funcion       Int?
+  cedula_rep    String?   @db.VarChar(10)
+  nombre_rep    String?   @db.Char(50)
+  celular_rep   String?   @db.VarChar(20)
+  telefonos_rep String?   @db.VarChar(40)
+  e_mail_rep    String?   @db.VarChar(50)
+  fecha_hora    DateTime? @db.DateTime
+  marca         Boolean?
+  cuotas_man    Int?
+  cuotas_ext    Int?
+  cuotas_gir    Int?
+  monto_man     Int?
+  monto_ext     Int?
+  monto_gir     Int?
+  susp_desde    DateTime? @db.DateTime
+  susp_hasta    DateTime? @db.DateTime
+  rif_tra       String?   @db.VarChar(20)
+  fact_juri     Int?
+  profesion     String?   @db.VarChar(100)
+  date_access   DateTime? @db.DateTime
+  brazaletes    Int?
+  AddCedMenor   Int?
+  caneyExon     Int?
+  fecha_modi    DateTime? @db.DateTime
+  id_nfc        Int?
+  fecha_mat     DateTime? @db.DateTime
+  fechaHonor    DateTime? @db.DateTime
+  idDig         Boolean?  @default(false, map: "DF_Tmae_socios_idDig")
+  fecIdDig      DateTime? @db.DateTime
+  nota          String?   @default("", map: "DF__Tmae_socio__nota__78E9C54B") @db.VarChar(250)
+  paraDisfru    Int?      @default(0, map: "DF__Tmae_soci__paraD__79DDE984")
+  noVenta       Boolean?  @default(false, map: "DF__Tmae_soci__noVen__7AD20DBD")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Torniquete {
+  id_nfc  String?   @db.VarChar(50)
+  num_nfc String?   @db.VarChar(50)
+  fec_nfc DateTime? @db.DateTime
+  acc_nfc String?   @db.VarChar(50)
+  fec_fin DateTime? @db.DateTime
+  ip_nfc  String?   @db.VarChar(50)
+  reg_nfc String?   @db.NChar(10)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model TorniqueteLog {
+  cod_log  BigInt    @default(autoincrement())
+  card_log String?   @db.VarChar(50)
+  time_log DateTime? @db.DateTime
+  enc_log  Int?
+  desc_log String?   @db.VarChar(Max)
+  ip_log   String?   @db.VarChar(50)
+  mon_log  String?   @db.VarChar(Max)
+  exec_log String?   @default("Card", map: "DF_TorniqueteLog_exec_log") @db.VarChar(50)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model View_clicomp {
+  accion        String    @db.NVarChar(15)
+  Expr1         String?   @db.NVarChar(100)
+  nom_fam       String?   @db.NVarChar(40)
+  ced_fam       String    @db.NVarChar(14)
+  fec_fam       DateTime  @db.Date
+  clasificacion String?   @db.NVarChar(6)
+  cel_fam       String    @db.NVarChar(100)
+  email_fam     String?   @db.NVarChar(150)
+  nfcId         String?   @db.NVarChar(20)
+  fecha_car     DateTime? @db.Date
+  no            Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model View_cliempre {
+  activa        Boolean?
+  status        Float
+  nfcId         String?   @db.NVarChar(15)
+  tipo_socio    Float
+  fecha_ing     DateTime  @db.Date
+  fecha_fin     DateTime  @db.Date
+  accion        String    @db.NVarChar(15)
+  nombre        String?   @db.NVarChar(100)
+  cedula        String?   @db.NVarChar(14)
+  direccion     String?   @db.NVarChar(200)
+  telefonos     String?   @db.NVarChar(30)
+  fax_tra       String?   @db.NVarChar(14)
+  celular       String?   @db.NVarChar(12)
+  e_mail        String?   @db.NVarChar(100)
+  sexo          Int
+  nacionalid    String?   @db.NVarChar(20)
+  fecha_nac     DateTime  @db.Date
+  estado_civ    Float
+  empresa_tra   String?   @db.NVarChar(50)
+  rif_tra       String?   @db.NVarChar(20)
+  telefonos_tra String?   @db.NVarChar(50)
+  e_mail_tra    String?   @db.NVarChar(80)
+  fecha_mat     String?   @db.NVarChar(5)
+  fecha_car     DateTime? @db.Date
+  trabcargo     String?   @db.NVarChar(40)
+  emision       DateTime  @db.Date
+  codigo        String    @db.NVarChar(25)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model View_Deta_Socios {
+  tipo_socio Int?
+  statusSoc  Int?
+  nombre     String?   @db.NVarChar(100)
+  fecha_ing  DateTime?
+  fecha_fin  DateTime? @db.Date
+  codigo     String    @db.NVarChar(15)
+  activa     Boolean?
+  status     Int?
+  accion     String?   @db.VarChar(10)
+  nom_fam    String?   @db.NVarChar(40)
+  ced_fam    String?   @db.NVarChar(20)
+  fec_fam    DateTime
+  cel_fam    String    @db.NVarChar(100)
+  email_fam  String?   @db.NVarChar(150)
+  nfcId      String?   @db.NVarChar(20)
+  sexo_fam   Int
+  par_fam    Int?
+  parentesco String?   @db.NVarChar(45)
+  fecha_car  DateTime?
+
+  @@ignore
+}
+
+model visitantes {
+  id_visit    Int       @id(map: "PK_visitantes") @default(autoincrement())
+  ced_rif     String    @db.VarChar(25)
+  fecha       DateTime? @db.DateTime
+  fecha_crea  DateTime? @default(now(), map: "DF_visitantes_fecha_crea") @db.DateTime
+  temper      String?   @db.Char(5)
+  obser       String?   @db.VarChar(150)
+  placa       String?   @db.VarChar(10)
+  status      Boolean?  @default(false, map: "DF_visitantes_status")
+  lugar       String?   @default("", map: "DF__visitante__lugar__4D404D37") @db.VarChar(100)
+  hora        String?   @default("", map: "DF_visitantes_hora") @db.VarChar(10)
+  accion      String?   @default("", map: "DF__visitante__accio__4EF38B7F") @db.VarChar(10)
+  tipoPersona Int?      @default(0, map: "DF__visitante__tipoP__4FE7AFB8")
+  nombre      String?   @default("", map: "DF__visitante__nombr__50DBD3F1") @db.VarChar(100)
+  telefono    String?   @default("", map: "DF__visitante__telef__51CFF82A") @db.VarChar(20)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model who_ran {
+  id_ran     Int       @default(autoincrement())
+  equipo     String?   @db.VarChar(50)
+  usuario    String?   @db.VarChar(150)
+  fecha_hora DateTime? @default(now(), map: "DF__who_ran__fecha_h__32E15CB6") @db.DateTime
+
+  @@ignore
+}
