@@ -5,11 +5,11 @@ import cumples from './routers/cumple_socios.routes';
 import cuotas from './routers/cuotas_socios.routes'
 import socios from './routers/socios.routes'
 
+const PORT = process.env.PORT ?? 3000;
 const app = express();
 
 app.use(express.json());
 app.use(cors());
-const PORT = 3000;
 
 app.use('/cumples', cumples)
 app.use('/cuotas', cuotas)
