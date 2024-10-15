@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
+    "build": "tsc --build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev src/index.ts",
     "start": "node build/index.js",
@@ -24,9 +25,12 @@
   "dependencies": {
     "@prisma/client": "^5.20.0",
     "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "4.21.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "xlsx-populate": "^1.21.0"
   }
 }
