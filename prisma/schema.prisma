@@ -2447,7 +2447,7 @@ model visitantes {
   accion      String?   @default("", map: "DF__visitante__accio__4EF38B7F") @db.VarChar(10)
   tipoPersona Int?      @default(0, map: "DF__visitante__tipoP__4FE7AFB8")
   nombre      String?   @default("", map: "DF__visitante__nombr__50DBD3F1") @db.VarChar(100)
-  telefono    String?   @default("", map: "DF__visitante__telef__51CFF82A") @db.VarChar(20)
+  telefono    String?   @default("", map: "DF__visitante__telef__51CFF82A") @db.VarChar(50)
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
