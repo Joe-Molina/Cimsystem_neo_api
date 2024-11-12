@@ -1677,7 +1677,7 @@ model impuestos {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model invitados {
-  id_invit   Int       @default(autoincrement())
+  id_invit   Int       @unique @default(autoincrement())
   accion     String?   @db.VarChar(10)
   cedula_i   String?   @db.VarChar(15)
   nombre_i   String?   @db.VarChar(150)
@@ -1688,8 +1688,6 @@ model invitados {
   fecha_i    DateTime? @db.DateTime
   fecha_hora DateTime? @default(now(), map: "DF_invitados_fecha_hora") @db.DateTime
   tipo_pase  String?   @default(" ", map: "DF__invitados__tipo___477C86E9") @db.VarChar(1)
-
-  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.

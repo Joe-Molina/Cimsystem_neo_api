@@ -176,4 +176,26 @@ export class SociosModel {
 
   }
 
+  static async getAllguests(accion: any) {
+    const invitados = await prisma.invitados.findMany({
+      select: {
+        accion: true,
+        cedula_i: true,
+        nombre_i: true,
+        fecha_hora: true,
+        tipo_pase: true,
+        id_invit: true,
+      },
+      where: {
+        accion
+      },
+      orderBy: {
+        fecha_hora: 'desc'
+      }
+    })
+
+    return invitados
+
+  }
+
 }

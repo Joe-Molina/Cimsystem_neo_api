@@ -16,6 +16,9 @@ export class FacturasModel {
         recibido: true,
         fecha_hora: true,
 
+      },
+      orderBy: {
+        fecha_hora: 'desc'
       }
     })
 
@@ -35,7 +38,6 @@ export class FacturasModel {
         cantidad: true,
         importe: true,
         fecha_hora: true,
-
       }
     })
 

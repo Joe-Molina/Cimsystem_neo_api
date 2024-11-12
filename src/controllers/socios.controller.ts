@@ -19,4 +19,11 @@ export class Socios {
 
     res.json(socios)
   }
+
+  static async getAllguests(req: any, res: any) {
+
+    const guests = (await SociosModel.getAllguests(req.params.accion))
+
+    res.json(guests)
+  }
 }
