@@ -11,7 +11,11 @@ export class PartnerBirthdaysModel {
         celular: true,
         e_mail: true,
         nombre: true
-      }
+      },
+      orderBy: {
+        fecha_nac: 'asc'
+      },
+
     })
 
     const getConyuges = await prisma.deta_socios.findMany({
@@ -25,7 +29,11 @@ export class PartnerBirthdaysModel {
         nom_fam: true,
         cel_fam: true,
         email_fam: true,
-      }
+      },
+      orderBy: {
+        fec_fam: 'asc'
+      },
+
     })
 
     const socios = await getSocios.filter((e: any) => e?.accion[0] !== "D")
