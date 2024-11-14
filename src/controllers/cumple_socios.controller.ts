@@ -42,7 +42,7 @@ export class PartnerBirthdays {
       }
 
       const compareMonth = (month: number) => {
-        const todayMonth = new Date().getMonth() + 1
+        const todayMonth = new Date().getMonth()
         if (todayMonth == month) return true
       }
 
@@ -72,13 +72,6 @@ export class PartnerBirthdays {
 
       return e; // Devolver el objeto actualizado
     }));
-
-
-
-
-    // const Conyuges = () => {
-    //   return {}
-    // }
 
     return res.json({ Socios, updatedConyuges })
 
