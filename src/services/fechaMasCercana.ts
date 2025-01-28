@@ -20,5 +20,5 @@ export function fechaMasCercana(mantenimientos: any[] | undefined) {
     return isAfter(actual.fecha_can, acumulador.fecha_can) ? actual : acumulador;
   });
 
-  return fechaCercana;
+  return fechaCercana.fecha_can;
 }

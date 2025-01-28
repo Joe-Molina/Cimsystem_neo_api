@@ -44,4 +44,28 @@ export class CobranzsaModel {
     }
   }
 
+  static async getCargosPendientes() {
+
+    try {
+      const data: any = await prisma.data_cargo.findMany({
+        where: {
+          marca: false,
+        },
+        select: {
+          accion: true,
+          marca: true,
+          divisa: true,
+        }
+      })
+
+      return data.map((man: any) => {
+        man.accion = man.accion.trim()
+        return man
+      })
+    } catch (error) {
+      return []
+    }
+
+  }
+
 }
