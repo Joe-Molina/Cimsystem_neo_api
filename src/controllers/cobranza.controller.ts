@@ -47,7 +47,7 @@ export class Cobranza {
         // console.log(await transporter.verify())
         const info = await transporter.sendMail({
           from: `"Maryelin Ruiz" <cobranzas@casaitaliamaracay.com>`, // Remitente
-          to: `joedodaniljr123@gmail.com`, // Destinatario
+          to: `${data.e_mail}`, // Destinatario
           cc: 'cobranzas@casaitaliamaracay.com',
           subject: 'Recordatorio de pagos de su accion en la CASA DE ITALIA DE MARACAY',
           text,
